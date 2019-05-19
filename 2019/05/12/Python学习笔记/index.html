@@ -21,9 +21,11 @@
 <meta property="og:url" content="https://chengchengzi.github.io/2019/05/12/Python学习笔记/index.html">
 <meta property="og:site_name" content="ChengChengZi&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-19T13:29:31.939Z">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/12/Python学习笔记/7-1.png">
+<meta property="og:updated_time" content="2019-05-19T13:46:06.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python学习笔记">
+<meta name="twitter:image" content="https://chengchengzi.github.io/2019/05/12/Python学习笔记/7-1.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -350,7 +352,7 @@
 <li><p>在Python中，能够直接处理地数据类型有：整数、浮点数、字符串、布尔值、空值，还提供了列表、字典等多种数据类型，还有自定义数据类型;<br>-Python允许用’’’…’’’地格式表示多行内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;print(&apos;&apos;&apos;line1</span><br><span class="line">… line2</span><br><span class="line">… line3&apos;&apos;&apos;)</span><br><span class="line">line1</span><br><span class="line">line2</span><br><span class="line">line3</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>空值时Python里地一个特殊地值，用None表示。None不能理解为0，None是一个特的地空值。</p>
+<li><p>空值是Python里地一个特殊地值，用None表示。None不能理解为0，None是一个特的地空值。</p>
 </li>
 <li>变量名必须是大小写英文、数字和下划线 _ 的组合，且不能用数字开头</li>
 <li>Python用的是动态语言</li>
@@ -363,7 +365,7 @@
 <li>在Python中，采用的格式化方法和c语言是一致的，用%实现<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;&apos;Hello,%s&apos; % &apos;world&apos;</span><br><span class="line">&apos;Hello, world&apos;</span><br><span class="line">&gt;&gt;&gt; &apos;Hi, %s, you have $%d.&apos; % (&apos;Lily, 100000)</span><br><span class="line">&apos;Him Lily, you have $100000. &apos;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">占位符	替换内容</span><br><span class="line">%d	    整数</span><br><span class="line">%f	    浮点数</span><br><span class="line">%s	    字符串</span><br><span class="line">%x	    十六进制整数</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">占位符	替换内容</span><br><span class="line">%d	  整数</span><br><span class="line">%f	  浮点数</span><br><span class="line">%s	  字符串</span><br><span class="line">%x	  十六进制整数</span><br></pre></td></tr></table></figure>
 <h2 id="list、tuple、dict、set"><a href="#list、tuple、dict、set" class="headerlink" title="list、tuple、dict、set"></a>list、tuple、dict、set</h2><ul>
 <li>dict和set的key必须是不可变对象。不可变对象指调用对象自身的任意方法，也不会改变对象自身的内容，反而会创建新的对象并返回。</li>
 <li>dict特点：<ul>
@@ -372,77 +374,153 @@
 </ul>
 </li>
 <li>ist特点：<ul>
-<li>① 查找和插入的实践随元素的增加而增加</li>
+<li>① 查找和插入的时间随元素的增加而增加</li>
 <li>② 占用空间小，节省空间</li>
 </ul>
 </li>
 <li>set是无重复无序元素的集合</li>
 <li>set和dict的唯一区别是在于有没有存储对应的value</li>
 </ul>
-<h1 id="四、函数"><a href="#四、函数" class="headerlink" title="四、函数"></a>四、函数</h1><pre><code>1、** Python函数返回多个值实际上是返回一个tuple
-      ** 函数体内部可以用return随时返回函数结果
-      ** 函数执行完毕没有return语句时，自动return None 
-   2、参数
-    ** Python参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数、关键字参数
-    ** 设置默认参数时，必选参数在前，默认参数在后
-    ** 默认参数必须指向不变对象
-    ** 在参数前面加一个 * 号，调用该参数时就可以传入任意个参数了。包括0个参数,可变参数在函数调用时自动组装为一个tuple
-       def cacl(*number):
-        …
-    ** 关键字参数允许传入0个或任意个参数，在函数内部自动组装为一个dict
-         def person(name,age,**kw):
-            print(&apos;name: &apos; , name, &apos;age: &apos;, age, &apos;other: &apos; , kw)
-    ** *args是可变参数，args接收的是一个tuple，**kw是关键字参数，kw接收的是一个dict，*args和**kw是Python的习惯写法
-    ** 命名关键字参数需要一个特殊分隔符 * ，*后面的参数被视为命名关键字参数，即只接受对于名字的参数，调用时必须传入参数名
-        def person(name, age, * , city, job):
-            print(name,age,city,job)
-
-        &gt;&gt;&gt;person(&apos;Jack&apos;, 24, city = &apos;Beijing&apos; , job = &apos;Engineer&apos;)
-        Jack 24 Beijing Engineer
-</code></pre><p>五、函数的高级特性<br>    <strong> list、tuple、字符串都可以进行切片操作，倒数第一个元素的索引是-1
-    </strong> 生成器generator：一边循环一边计算<br>    <strong> 普通函数和generator函数区别：调用普通函数直接返回结果，调用generator实际返回一个generator对象
-    </strong> 凡是可作用于for循环的对象都是Iterble类型，凡是可作用于next（）函数的对象都是Iterator类型，其表示一个惰性计算序列。<br>    <strong> 集合数据类型如list、dict、str等都是Iterable，但不是Iterator。<br>六、函数式编程
-    </strong> Python对函数式编程提供部分支持，由于其允许使用变量，因此并不是纯函数式编程语言；<br>    <strong> 函数式编程就是一种抽象程度很高的编程范式，允许把函数本身作为参数传入另一个函数，还允许返回一个函数；
-    </strong> 高阶函数：<br>        <strong> map() 接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每     个元素，并把结果作为新的Iterator返回；
-        </strong> Reduce()把一个函数作用在一个序列上[x1,x2,x3,…]上，这个函数必须接收两个参数，reduce   把结果继续和序列的下一个元素做累计运算；<br>        <strong> Filter()接收一个函数和一个序列，filter()把传入的函数依次作用于每个元素，然后根据返回值是True还是False决定保留还是丢弃该元素
-        </strong> sorted(list，key，reverse = True)，关键字Key指向映射函数，作用于list上的每一个元素，然后sorted对Key作用后的list进行排序，reverse 为true表示反向排序。<br>        <strong> 匿名函数 lambda x：x * x ，冒号前的x表示函数参数，冒号后面的表达式就是匿名函数的返回值
-    </strong> 装饰器<br>        <strong> 定义：在代码运行期间动态增加功能的方式，称之为装饰器；
-        </strong> 本质上，decorator是一个返回函数的高阶函数；<br>    <strong> 偏函数
-        </strong> 当函数的参数个数太多，需要简化时，使用functools.partial可以创建一个新的函数，这个新函数可以固定住原函数的部分参数，从而在调用时更简单。<br>七、模块<br>    ** Python模块的标准文件模板：</p>
-<pre><code>**作用域
-    ** 正常的函数和变量名都是公开的，可以直接被引用，Python通过_前缀来实现有些函数和变量我们仅仅在模块内部使用，即表明是私有的，类似于_xxx和__xxx这样的函数或变量就是私有的，不可被直接引用；
-    ** 在Python中安装第三方模块，是通过包管理工具pip完成的
-</code></pre><p>八、面向对象<br>    <strong> 面向对象的三大特性：封装、继承、多态
-    </strong> Python的构造函数：<strong>init</strong>（self，param1，param2）其第一参数永远是self，表示创建的实例本身，有了<strong>init</strong>方法，在创建实例的时候，就必须传入与之匹配的参数，但self不需要传；<br>    <strong> 私有变量，在变量前加两个下划线 “__xxxx；
-    </strong> 多态的威力：调用方只管调用，不用管细节；满足开闭原则，即对扩展开放，对修改封闭<br>    <strong> 动态语言的“鸭子类型”决定不要求严格的继承体系，一个对象只要“看起来像鸭子，走路像鸭子”，那它就可以被看做是鸭子。Pyhton的“file-like-object”就是一种鸭子类型；
-    </strong> 获取对象的信息<br>        <strong> 总是优先使用isinstance()判断类型
-        </strong> dir()函数可以获得一个对象的所有属性和方法，它返回一个包含字符串的list;<br>        <strong> getattr()、setattr()、hasattr()可以直接操作一个对象的状态；
-    </strong> 写程序时。不要对实例属性和类属性使用相同的名字，因为相同名称的实例属性将屏蔽掉类属性，但是删除实例属性后，再使用相同的名称，访问到将是类属性；<br>九、面向对象高级编程<br>    <strong> 动态语言的灵活性:创建了一个class的实例后，我们可以给该实例绑定任何属性和方;
-    </strong> 特殊的<strong>slots</strong>变量，来限制该class实例能添加的属性, but定义的属性仅对当前类实例起作用，对继承的子类是不起作用的;<br>    <strong> python内置的 @property装饰器负责把一个方法变成属性调用
-    </strong> 不定义setter方法就是一个只读属性<br>    <strong> callable()函数，我们就可以判断一个对象是否是“可调用”对象
-    </strong> @unique装饰器可以帮助我们检查保证没有重复值<br>十、错误，编译和调试<br>    <strong> 只有在必要的时候才定义我们自己的错误类型。如果可以选择Python已有的内置的错误类型（比如ValueError，TypeError），尽量使用Python内置的错误类型。
-    </strong> 调试的方式<br>        <strong> 打印，print（）；
-        </strong> 断言，assert xxx,yyy，如果xxx为假，则输出yyy；<br>        <strong> 日志，logging，信息的级别有：debug，info，warning,error；
-        </strong> 调试器pdb，pdb.set_trace() 设置一个断点；<br>        <strong> 支持调试功能的IDE设置断点，调试<br>十一、IO编程
-    </strong> 输入输出流，Input Stream就是数据从外面（磁盘、网络）流进内存，Output Stream就是数据从内存流到外面；<br>    <strong> 解决CPU、内存的速度和外设的速度不匹配的方法：同步IO、异步IO，二者的区别在于CPU是否等待IO的指向结果；
-    </strong> 在Python中，文件读写是通过open()函数打开的文件对象完成的；<br>    <strong> with 可以自动调用close()，使用with语句操作文件IO是个好习惯；
-    </strong> StringIO和BytesIO是在内存中操作str和bytes的方法，使得和读写文件具有一致的接口；<br>    <strong> 序列化：将变量从内存中变成可存储或传输的过程称之为序列化，使用json模块可以使序列化更通用、更符合Web标准；
-    </strong> 为什么要序列化：因为要在不同的编程语言之间传递对象，这就就必须把对象序列化为标准格式。<br>十二、进程和线程<br>    <strong> 多任务的实现有3种方式：多进程模式； 多线程模式； 多进程+多线程模式。；
-    </strong> 在Unix/Linux下，可以使用fork()调用实现多进程；<br>    <strong> 要实现跨平台的多进程，可以使用multiprocessing模块；
-    </strong> 进程间通信是通过Queue、Pipes等实现的；<br>    <strong> ThreadLocal解决了参数在一个线程中各个函数之间互相传递的问题；
-    </strong>分布式进程： Python的multiprocessing模块不但支持多进程，其中managers子模块还支持把多进程分布到多台机器上；<br>十三、正则表达式<br>    <strong> 正则表达式的作用是匹配字符串；
-    </strong> 正则表达式中如何用字符来描述字符，可以在python的官网查询到；<br>        <a href="https://docs.python.org/3/library/re.html?highlight=re#" target="_blank" rel="noopener">https://docs.python.org/3/library/re.html?highlight=re#</a><br>    <strong> Python提供re模块，包含所有正则表达式的功能。<br>十四、Python常用的内置模块：
-    </strong> datetime、collections、based64、struct、hashlib、hmac、itertools、contextlib、<br>    urllib、XML、HTMLParser；<br>    <strong> time 如果要存储datetime，最佳方法是将其转换为timestamp再存储，因为timestamp的值与时区完全无关；
-    </strong> collections模块提供了一些有用的集合类，可以根据需要选用；<br>    <strong> Base64是一种任意二进制到文本字符串的编码方法，常用于在URL、Cookie、网页中传输少量二进制数据；
-    </strong> Python提供了一个struct模块来解决bytes和其他二进制数据类型的转换；<br>    <strong> hashlib提供了常见的摘要算法，如MD5，SHA1等等,摘要算法不是加密算法，不能用于加密（因为无法通过摘要反推明文），只能用于防篡改；
-    </strong> Python内置的hmac模块实现了标准的Hmac算法，它利用一个key对message计算“杂凑”后的hash，使用hmac算法比标准hash算法更安全，因为针对相同的message，不同的key会产生不同的hash；<br>    <strong> 内建模块itertools提供了非常有用的用于操作迭代对象的函数；
-    </strong> urllib提供了一系列用于操作URL的功能，操作XML有两种方法：DOM和SAX。DOM会把整个XML读入内存，解析为树，因此占用内存大，解析慢，优点是可以任意遍历树的节点。SAX是流模式，边读边解析，占用内存小，解析快，缺点是我们需要自己处理事件。正常情况下，优先考虑SAX，因为DOM实在太占内存；<br>    <strong> 利用HTMLParser，可以把网页中的文本、图像等解析出来；<br>十五、常用第三方模块
-    </strong> pillow、requests、chardet、psutil<br>    <strong> PIL pillow 提供了操作图像的强大功能，可以通过简单的代码完成复杂的图像处理。要详细了解PIL的强大功能，请参考Pillow官方文档：<a href="https://pillow.readthedocs.org/" target="_blank" rel="noopener">https://pillow.readthedocs.org/</a>   ；
-    </strong> requests是一个Python第三方库，处理URL资源特别方便；<br>    <strong> chardet用于检测编码，获取到编码后，再转换为str，就可以方便后续处理
-    </strong> Python程序利用psutil使得获取系统信息。psutil还可以获取用户信息、Windows服务等很多有用的系统信息，具体请参考psutil的官网：<a href="https://github.com/giampaolo/psutil" target="_blank" rel="noopener">https://github.com/giampaolo/psutil</a><br>十六、GUI和网络编程<br>    <strong> Python内置的Tkinter可以满足基本的GUI程序的要求，如果是非常复杂的GUI程序，建议用操作系统原生支持的语言和库来编写;
-    </strong> 网络编程就是如何在程序中实现两台计算机的通信；<br>    <strong> TCP用TCP协议进行Socket编程在Python中十分简单，对于客户端，要主动连接服务器的IP和指定端口，对于服务器，要首先监听指定端口，然后，对每一个新的连接，创建一个线程或进程来处理。通常，服务器程序会无限运行下去。同一个端口，被一个Socket绑定了以后，就不能被别的Socket绑定了；
-    </strong> UDP的使用与TCP类似，但是不需要建立连接。此外，服务器绑定UDP端口和TCP端口互不冲突，也就是说，UDP的9999端口与TCP的9999端口可以各自绑定。<br>十七、Web编程<br>    <strong> ORM技术：Object-Relational Mapping，把关系数据库的表结构映射到对象上；
-    </strong> 方法：GET还是POST的区别，GET仅请求资源，POST会附带用户数据；<br>** HTML定义了页面的内容，CSS来控制页面元素的样式，而JavaScript负责页面的交互逻辑。</p>
+<h1 id="四、函数"><a href="#四、函数" class="headerlink" title="四、函数"></a>四、函数</h1><h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><ul>
+<li>Python函数返回多个值实际上是返回一个tuple</li>
+<li>函数体内部可以用return随时返回函数结果</li>
+<li>函数执行完毕没有return语句时，自动return None </li>
+</ul>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><ul>
+<li>Python参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数、关键字参数</li>
+<li>设置默认参数时，必选参数在前，默认参数在后</li>
+<li>默认参数必须指向不变对象</li>
+<li><p>在参数前面加一个 * 号，调用该参数时就可以传入任意个参数了。包括0个参数,可变参数在函数调用时自动组装为一个tuple</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def cacl(*number):</span><br><span class="line">		…</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关键字参数允许传入0个或任意个参数，在函数内部自动组装为一个dict</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def person(name,age,**kw):</span><br><span class="line"> print(&apos;name: &apos; , name, &apos;age: &apos;, age, &apos;other: &apos; , kw)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>*args是可变参数，args接收的是一个tuple，**kw是关键字参数，kw接收的是一个dict，*args和** kw是Python的习惯写法</p>
+</li>
+<li>命名关键字参数需要一个特殊分隔符 * ，*后面的参数被视为命名关键字参数，即只接受对于名字的参数，调用时必须传入参数名<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def person(name, age, * , city, job):</span><br><span class="line">	print(name,age,city,job)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;person(&apos;Jack&apos;, 24, city = &apos;Beijing&apos; , job = &apos;Engineer&apos;)</span><br><span class="line">Jack 24 Beijing Engineer</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="五、函数的高级特性"><a href="#五、函数的高级特性" class="headerlink" title="五、函数的高级特性"></a>五、函数的高级特性</h1><ul>
+<li>list、tuple、字符串都可以进行切片操作，倒数第一个元素的索引是-1</li>
+<li>生成器generator：一边循环一边计算</li>
+<li>普通函数和generator函数区别：调用普通函数直接返回结果，调用generator实际返回一个generator对象</li>
+<li>凡是可作用于for循环的对象都是Iterble类型，凡是可作用于next（）函数的对象都是Iterator类型，其表示一个惰性计算序列。</li>
+<li>集合数据类型如list、dict、str等都是Iterable，但不是Iterator。</li>
+</ul>
+<h1 id="六、函数式编程"><a href="#六、函数式编程" class="headerlink" title="六、函数式编程"></a>六、函数式编程</h1><ul>
+<li>Python对函数式编程提供部分支持，由于其允许使用变量，因此并不是纯函数式编程语言；</li>
+<li>函数式编程就是一种抽象程度很高的编程范式，允许把函数本身作为参数传入另一个函数，还允许返回一个函数；</li>
+<li>高阶函数：</li>
+<li>map() 接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每     个元素，并把结果作为新的Iterator返回；</li>
+<li>Reduce()把一个函数作用在一个序列上[x1,x2,x3,…]上，这个函数必须接收两个参数，reduce   把结果继续和序列的下一个元素做累计运算；</li>
+<li>Filter()接收一个函数和一个序列，filter()把传入的函数依次作用于每个元素，然后根据返回值是True还是False决定保留还是丢弃该元素</li>
+<li>sorted(list，key，reverse = True)，关键字Key指向映射函数，作用于list上的每一个元素，然后sorted对Key作用后的list进行排序，reverse 为true表示反向排序。</li>
+<li>匿名函数 lambda x：x * x ，冒号前的x表示函数参数，冒号后面的表达式就是匿名函数的返回值</li>
+<li>装饰器<ul>
+<li>定义：在代码运行期间动态增加功能的方式，称之为装饰器；</li>
+<li>本质上，decorator是一个返回函数的高阶函数；</li>
+</ul>
+</li>
+<li>偏函数<ul>
+<li>当函数的参数个数太多，需要简化时，使用functools.partial可以创建一个新的函数，这个新函数可以固定住原函数的部分参数，从而在调用时更简单。</li>
+</ul>
+</li>
+</ul>
+<h1 id="七、模块"><a href="#七、模块" class="headerlink" title="七、模块"></a>七、模块</h1><ul>
+<li><p>Python模块的标准文件模板：<br><img src="/2019/05/12/Python学习笔记/7-1.png" alt="标准文件模板"></p>
+</li>
+<li><p>作用域</p>
+<ul>
+<li>正常的函数和变量名都是公开的，可以直接被引用，Python通过_ 前缀来实现有些函数和变量我们仅仅在模块内部使用，即表明是私有的，类似于_xxx和__xxx这样的函数或变量就是私有的，不可被直接引用；</li>
+<li>在Python中安装第三方模块，是通过包管理工具pip完成的</li>
+</ul>
+</li>
+</ul>
+<h1 id="八、面向对象"><a href="#八、面向对象" class="headerlink" title="八、面向对象"></a>八、面向对象</h1><ul>
+<li>面向对象的三大特性：封装、继承、多态</li>
+<li>Python的构造函数：<strong>init</strong>（self，param1，param2）其第一参数永远是self，表示创建的实例本身，有了<strong>init</strong>方法，在创建实例的时候，就必须传入与之匹配的参数，但self不需要传；</li>
+<li>私有变量，在变量前加两个下划线 “__xxxx；</li>
+<li>多态的威力：调用方只管调用，不用管细节；满足开闭原则，即对扩展开放，对修改封闭</li>
+<li>动态语言的“鸭子类型”决定不要求严格的继承体系，一个对象只要“看起来像鸭子，走路像鸭子”，那它就可以被看做是鸭子。Pyhton的“file-like-object”就是一种鸭子类型；</li>
+<li>获取对象的信息</li>
+<li>总是优先使用isinstance()判断类型</li>
+<li>dir()函数可以获得一个对象的所有属性和方法，它返回一个包含字符串的list;</li>
+<li>getattr()、setattr()、hasattr()可以直接操作一个对象的状态；</li>
+<li>写程序时。不要对实例属性和类属性使用相同的名字，因为相同名称的实例属性将屏蔽掉类属性，但是删除实例属性后，再使用相同的名称，访问到将是类属性；</li>
+</ul>
+<h1 id="九、面向对象高级编程"><a href="#九、面向对象高级编程" class="headerlink" title="九、面向对象高级编程"></a>九、面向对象高级编程</h1><ul>
+<li>动态语言的灵活性:创建了一个class的实例后，我们可以给该实例绑定任何属性和方;</li>
+<li>特殊的<strong>slots</strong>变量，来限制该class实例能添加的属性, but定义的属性仅对当前类实例起作用，对继承的子类是不起作用的;</li>
+<li>python内置的 @property装饰器负责把一个方法变成属性调用</li>
+<li>不定义setter方法就是一个只读属性</li>
+<li>callable()函数，我们就可以判断一个对象是否是“可调用”对象</li>
+<li>@unique装饰器可以帮助我们检查保证没有重复值</li>
+</ul>
+<h1 id="十、错误，编译和调试"><a href="#十、错误，编译和调试" class="headerlink" title="十、错误，编译和调试"></a>十、错误，编译和调试</h1><ul>
+<li>只有在必要的时候才定义我们自己的错误类型。如果可以选择Python已有的内置的错误类型（比如ValueError，TypeError），尽量使用Python内置的错误类型。</li>
+<li>调试的方式<ul>
+<li>打印，print（）；</li>
+<li>断言，assert xxx,yyy，如果xxx为假，则输出yyy；</li>
+<li>日志，logging，信息的级别有：debug，info，warning,error；</li>
+<li>调试器pdb，pdb.set_trace() 设置一个断点；</li>
+<li>支持调试功能的IDE设置断点，调试</li>
+</ul>
+</li>
+</ul>
+<h1 id="十一、IO编程"><a href="#十一、IO编程" class="headerlink" title="十一、IO编程"></a>十一、IO编程</h1><ul>
+<li>输入输出流，Input Stream就是数据从外面（磁盘、网络）流进内存，Output Stream就是数据从内存流到外面；</li>
+<li>解决CPU、内存的速度和外设的速度不匹配的方法：同步IO、异步IO，二者的区别在于CPU是否等待IO的指向结果；</li>
+<li>在Python中，文件读写是通过open()函数打开的文件对象完成的；</li>
+<li>with 可以自动调用close()，使用with语句操作文件IO是个好习惯；</li>
+<li>StringIO和BytesIO是在内存中操作str和bytes的方法，使得和读写文件具有一致的接口；</li>
+<li>序列化：将变量从内存中变成可存储或传输的过程称之为序列化，使用json模块可以使序列化更通用、更符合Web标准；</li>
+<li>为什么要序列化：因为要在不同的编程语言之间传递对象，这就就必须把对象序列化为标准格式。</li>
+</ul>
+<h1 id="十二、进程和线程"><a href="#十二、进程和线程" class="headerlink" title="十二、进程和线程"></a>十二、进程和线程</h1><ul>
+<li>多任务的实现有3种方式：多进程模式； 多线程模式； 多进程+多线程模式。；</li>
+<li>在Unix/Linux下，可以使用fork()调用实现多进程；</li>
+<li>要实现跨平台的多进程，可以使用multiprocessing模块；</li>
+<li>进程间通信是通过Queue、Pipes等实现的；</li>
+<li>ThreadLocal解决了参数在一个线程中各个函数之间互相传递的问题；</li>
+<li>分布式进程： Python的multiprocessing模块不但支持多进程，其中managers子模块还支持把多进程分布到多台机器上；</li>
+</ul>
+<h1 id="十三、正则表达式"><a href="#十三、正则表达式" class="headerlink" title="十三、正则表达式"></a>十三、正则表达式</h1><ul>
+<li>正则表达式的作用是匹配字符串；</li>
+<li>正则表达式中如何用字符来描述字符，可以在python的官网查询到；<pre><code>https://docs.python.org/3/library/re.html?highlight=re#
+</code></pre></li>
+<li>Python提供re模块，包含所有正则表达式的功能。</li>
+</ul>
+<h1 id="十四、Python常用的内置模块："><a href="#十四、Python常用的内置模块：" class="headerlink" title="十四、Python常用的内置模块："></a>十四、Python常用的内置模块：</h1><ul>
+<li>datetime、collections、based64、struct、hashlib、hmac、itertools、contextlib、<br>  urllib、XML、HTMLParser；</li>
+<li>time 如果要存储datetime，最佳方法是将其转换为timestamp再存储，因为timestamp的值与时区完全无关；</li>
+<li>collections模块提供了一些有用的集合类，可以根据需要选用；</li>
+<li>Base64是一种任意二进制到文本字符串的编码方法，常用于在URL、Cookie、网页中传输少量二进制数据；</li>
+<li>Python提供了一个struct模块来解决bytes和其他二进制数据类型的转换；</li>
+<li>hashlib提供了常见的摘要算法，如MD5，SHA1等等,摘要算法不是加密算法，不能用于加密（因为无法通过摘要反推明文），只能用于防篡改；</li>
+<li>Python内置的hmac模块实现了标准的Hmac算法，它利用一个key对message计算“杂凑”后的hash，使用hmac算法比标准hash算法更安全，因为针对相同的message，不同的key会产生不同的hash；</li>
+<li>内建模块itertools提供了非常有用的用于操作迭代对象的函数；</li>
+<li>urllib提供了一系列用于操作URL的功能，操作XML有两种方法：DOM和SAX。DOM会把整个XML读入内存，解析为树，因此占用内存大，解析慢，优点是可以任意遍历树的节点。SAX是流模式，边读边解析，占用内存小，解析快，缺点是我们需要自己处理事件。正常情况下，优先考虑SAX，因为DOM实在太占内存；</li>
+<li>利用HTMLParser，可以把网页中的文本、图像等解析出来；</li>
+</ul>
+<h1 id="十五、常用第三方模块"><a href="#十五、常用第三方模块" class="headerlink" title="十五、常用第三方模块"></a>十五、常用第三方模块</h1><ul>
+<li>pillow、requests、chardet、psutil</li>
+<li>PIL pillow 提供了操作图像的强大功能，可以通过简单的代码完成复杂的图像处理。要详细了解PIL的强大功能，请参考Pillow官方文档：<a href="https://pillow.readthedocs.org/" target="_blank" rel="noopener">https://pillow.readthedocs.org/</a>   ；</li>
+<li>requests是一个Python第三方库，处理URL资源特别方便；</li>
+<li>chardet用于检测编码，获取到编码后，再转换为str，就可以方便后续处理</li>
+<li>Python程序利用psutil使得获取系统信息。psutil还可以获取用户信息、Windows服务等很多有用的系统信息，具体请参考psutil的官网：<a href="https://github.com/giampaolo/psutil" target="_blank" rel="noopener">https://github.com/giampaolo/psutil</a></li>
+</ul>
+<h1 id="十六、GUI和网络编程"><a href="#十六、GUI和网络编程" class="headerlink" title="十六、GUI和网络编程"></a>十六、GUI和网络编程</h1><ul>
+<li>Python内置的Tkinter可以满足基本的GUI程序的要求，如果是非常复杂的GUI程序，建议用操作系统原生支持的语言和库来编写;</li>
+<li>网络编程就是如何在程序中实现两台计算机的通信；</li>
+<li>TCP用TCP协议进行Socket编程在Python中十分简单，对于客户端，要主动连接服务器的IP和指定端口，对于服务器，要首先监听指定端口，然后，对每一个新的连接，创建一个线程或进程来处理。通常，服务器程序会无限运行下去。同一个端口，被一个Socket绑定了以后，就不能被别的Socket绑定了；</li>
+<li>UDP的使用与TCP类似，但是不需要建立连接。此外，服务器绑定UDP端口和TCP端口互不冲突，也就是说，UDP的9999端口与TCP的9999端口可以各自绑定。</li>
+</ul>
+<h1 id="十七、Web编程"><a href="#十七、Web编程" class="headerlink" title="十七、Web编程"></a>十七、Web编程</h1><ul>
+<li>ORM技术：Object-Relational Mapping，把关系数据库的表结构映射到对象上；</li>
+<li>方法：GET还是POST的区别，GET仅请求资源，POST会附带用户数据；</li>
+<li>HTML定义了页面的内容，CSS来控制页面元素的样式，而JavaScript负责页面的交互逻辑。</li>
+</ul>
 
       
     </div>
@@ -454,7 +532,7 @@
         <p><span>本文标题:</span><a href="/2019/05/12/Python学习笔记/">Python学习笔记</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">ChengChengZi</a></p>
         <p><span>发布时间:</span>2019-05-12, 20:28:00</p>
-        <p><span>最后更新:</span>2019-05-19, 21:29:31</p>
+        <p><span>最后更新:</span>2019-05-19, 21:46:06</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/05/12/Python学习笔记/" title="Python学习笔记">https://chengchengzi.github.io/2019/05/12/Python学习笔记/</a>
             <span class="copy-path" data-clipboard-text="原文: https://chengchengzi.github.io/2019/05/12/Python学习笔记/　　作者: ChengChengZi" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -484,7 +562,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一、python简介"><span class="toc-number">2.</span> <span class="toc-text">一、python简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#python适合开发哪些类型的应用？"><span class="toc-number">2.1.</span> <span class="toc-text">python适合开发哪些类型的应用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python的优缺点："><span class="toc-number">2.2.</span> <span class="toc-text">python的优缺点：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、输入输出"><span class="toc-number">3.</span> <span class="toc-text">二、输入输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#输出print"><span class="toc-number">3.1.</span> <span class="toc-text">输出print()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、数据类型"><span class="toc-number">3.2.</span> <span class="toc-text">三、数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串编码"><span class="toc-number">3.3.</span> <span class="toc-text">字符串编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list、tuple、dict、set"><span class="toc-number">3.4.</span> <span class="toc-text">list、tuple、dict、set</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、函数"><span class="toc-number">4.</span> <span class="toc-text">四、函数</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一、python简介"><span class="toc-number">2.</span> <span class="toc-text">一、python简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#python适合开发哪些类型的应用？"><span class="toc-number">2.1.</span> <span class="toc-text">python适合开发哪些类型的应用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python的优缺点："><span class="toc-number">2.2.</span> <span class="toc-text">python的优缺点：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、输入输出"><span class="toc-number">3.</span> <span class="toc-text">二、输入输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#输出print"><span class="toc-number">3.1.</span> <span class="toc-text">输出print()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、数据类型"><span class="toc-number">3.2.</span> <span class="toc-text">三、数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串编码"><span class="toc-number">3.3.</span> <span class="toc-text">字符串编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list、tuple、dict、set"><span class="toc-number">3.4.</span> <span class="toc-text">list、tuple、dict、set</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、函数"><span class="toc-number">4.</span> <span class="toc-text">四、函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#返回值"><span class="toc-number">4.1.</span> <span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数"><span class="toc-number">4.2.</span> <span class="toc-text">参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、函数的高级特性"><span class="toc-number">5.</span> <span class="toc-text">五、函数的高级特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、函数式编程"><span class="toc-number">6.</span> <span class="toc-text">六、函数式编程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、模块"><span class="toc-number">7.</span> <span class="toc-text">七、模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、面向对象"><span class="toc-number">8.</span> <span class="toc-text">八、面向对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#九、面向对象高级编程"><span class="toc-number">9.</span> <span class="toc-text">九、面向对象高级编程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十、错误，编译和调试"><span class="toc-number">10.</span> <span class="toc-text">十、错误，编译和调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十一、IO编程"><span class="toc-number">11.</span> <span class="toc-text">十一、IO编程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十二、进程和线程"><span class="toc-number">12.</span> <span class="toc-text">十二、进程和线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十三、正则表达式"><span class="toc-number">13.</span> <span class="toc-text">十三、正则表达式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十四、Python常用的内置模块："><span class="toc-number">14.</span> <span class="toc-text">十四、Python常用的内置模块：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十五、常用第三方模块"><span class="toc-number">15.</span> <span class="toc-text">十五、常用第三方模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十六、GUI和网络编程"><span class="toc-number">16.</span> <span class="toc-text">十六、GUI和网络编程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十七、Web编程"><span class="toc-number">17.</span> <span class="toc-text">十七、Web编程</span></a></li></ol>
         
     </div>
     <style>
