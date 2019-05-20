@@ -25,7 +25,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/2-1.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/3-3-1.png">
-<meta property="og:updated_time" content="2019-05-19T13:30:11.430Z">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/特征归一化公式.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/多元线性回归梯度下降公式.png">
+<meta property="og:updated_time" content="2019-05-20T09:46:09.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML Learning">
 <meta name="twitter:description" content="吴恩达，ML课程学习笔记">
@@ -327,16 +329,16 @@
 
 </the></li>
 </ul>
-<h1 id="什么是机器学习？"><a href="#什么是机器学习？" class="headerlink" title="什么是机器学习？"></a>什么是机器学习？</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<h1 id="一、-什么是机器学习？"><a href="#一、-什么是机器学习？" class="headerlink" title="一、 什么是机器学习？"></a>一、 什么是机器学习？</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
 <li>Tom定义：一个程序被认为能从经验E中学习，解决任务T，达到性能度量值P，当且仅当，有了经验E后，经过P、评判，程序在处理T时的性能有所提升；</li>
-<li>吴恩达认为：经验e 就是程序上万次的自我练习的经验而任务 t 就是下棋。性能度量值 p呢，就是它在与一些新的对手比赛时，赢得比赛的概率。</li>
+<li>吴恩达认为：经验e 就是程序上万次的自我练习的经验而任务t就是下棋。性能度量值 p呢，就是它在与一些新的对手比赛时，赢得比赛的概率。</li>
 </ul>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>ML分为两大类：监督式学习和无监督式学习</p>
-<h1 id="监督学习和无监督学习"><a href="#监督学习和无监督学习" class="headerlink" title="监督学习和无监督学习"></a>监督学习和无监督学习</h1><ul>
-<li>数据集已经给出了人工标注，判断新的数据属于哪一类，比如：线性回归、逻辑回归、分类（已知样本类别);</li>
-<li>数据集未给出人工标注，也不知道有数据分为几类，无监督学习算法自动做分类，比如：聚类算法（未知样本类别);</li>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ul>
+<li>ML分为两大类：监督式学习和无监督式学习</li>
+<li>监督式学习：数据集已经给出了人工标注，判断新的数据属于哪一类，比如：线性回归、逻辑回归、分类（已知样本类别);</li>
+<li>无监督式学习：数据集未给出人工标注，也不知道有数据分为几类，无监督学习算法自动做分类，比如：聚类算法（未知样本类别);</li>
 </ul>
-<h1 id="单变量线性回归"><a href="#单变量线性回归" class="headerlink" title="单变量线性回归"></a>单变量线性回归</h1><h2 id="回归和分类都是监督学习问题"><a href="#回归和分类都是监督学习问题" class="headerlink" title="回归和分类都是监督学习问题"></a>回归和分类都是监督学习问题</h2><ul>
+<h1 id="二、单变量线性回归"><a href="#二、单变量线性回归" class="headerlink" title="二、单变量线性回归"></a>二、单变量线性回归</h1><h2 id="回归和分类都是监督学习问题"><a href="#回归和分类都是监督学习问题" class="headerlink" title="回归和分类都是监督学习问题"></a>回归和分类都是监督学习问题</h2><ul>
 <li>回归：处理（预测）一组连续的值输出;</li>
 <li>分类：处理（预测）少量离散值的输出;</li>
 </ul>
@@ -351,10 +353,22 @@
 <li>实际上，线性回归的代价函数总是convex function(凸函数)，它只有一个全局最优解，梯度下降一定可以收敛到最小值;</li>
 <li>Batch Gradient descent: 每一步梯度下降都使用了所有的训练样本;</li>
 </ul>
-<h1 id="回顾线性代数知识"><a href="#回顾线性代数知识" class="headerlink" title="回顾线性代数知识"></a>回顾线性代数知识</h1><ul>
-<li>矩阵和向量</li>
+<h1 id="三、多元线性回归（multivariate-linear-regression）"><a href="#三、多元线性回归（multivariate-linear-regression）" class="headerlink" title="三、多元线性回归（multivariate linear regression）"></a>三、多元线性回归（multivariate linear regression）</h1><h2 id="特征归一化"><a href="#特征归一化" class="headerlink" title="特征归一化"></a>特征归一化</h2><ul>
+<li>多元线性回归指一个样本有多个特征；</li>
+<li>特征缩放，即特征归一化, 公式如下：<br><img src="/2019/05/09/ML-Learning/特征归一化公式.png" alt="特征归一化公式"></li>
+<li>进行特征归一化的原因：确保同一样本的不同特征取值在相近范围内，这个范围一般取 $-1 &lt; x_i &lt; 1$。归一化方法将特征统一量纲，能够提高模型的收敛速度和最终的模型精度，否则进行梯度下降的速度会很慢。</li>
 </ul>
-<h1 id="多元线性回归（multivariate-linear-regression）"><a href="#多元线性回归（multivariate-linear-regression）" class="headerlink" title="多元线性回归（multivariate linear regression）"></a>多元线性回归（multivariate linear regression）</h1>
+<h2 id="多元线性回归的梯度下降公式："><a href="#多元线性回归的梯度下降公式：" class="headerlink" title="多元线性回归的梯度下降公式："></a>多元线性回归的梯度下降公式：</h2><ul>
+<li><img src="/2019/05/09/ML-Learning/多元线性回归梯度下降公式.png" alt="多元线性回归梯度下降公式"></li>
+<li>梯度下降的目的是找道一个能最小化代价函数 $J(θ)$ 的 $θ$ 值;</li>
+<li>关于学习率α：<ul>
+<li>学习率α太小，$J(θ)$ 在每一步迭代会下降得很慢，也就是说收敛得很慢;</li>
+<li>学习率α太大，$J(θ)$ 在每一步迭代不下降，或是可能不收敛;</li>
+<li>选择一系列的α值, 然后选择一个使 $J(θ)$ 快速下降的α值;</li>
+</ul>
+</li>
+</ul>
+<h2 id="特征选择和多项式"><a href="#特征选择和多项式" class="headerlink" title="特征选择和多项式"></a>特征选择和多项式</h2>
       
     </div>
     
@@ -365,7 +379,7 @@
         <p><span>本文标题:</span><a href="/2019/05/09/ML-Learning/">ML Learning</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">ChengChengZi</a></p>
         <p><span>发布时间:</span>2019-05-09, 21:45:14</p>
-        <p><span>最后更新:</span>2019-05-19, 21:30:11</p>
+        <p><span>最后更新:</span>2019-05-20, 17:46:09</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/05/09/ML-Learning/" title="ML Learning">https://chengchengzi.github.io/2019/05/09/ML-Learning/</a>
             <span class="copy-path" data-clipboard-text="原文: https://chengchengzi.github.io/2019/05/09/ML-Learning/　　作者: ChengChengZi" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -401,7 +415,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是机器学习？"><span class="toc-number">1.</span> <span class="toc-text">什么是机器学习？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">1.2.</span> <span class="toc-text">分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#监督学习和无监督学习"><span class="toc-number">2.</span> <span class="toc-text">监督学习和无监督学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#单变量线性回归"><span class="toc-number">3.</span> <span class="toc-text">单变量线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#回归和分类都是监督学习问题"><span class="toc-number">3.1.</span> <span class="toc-text">回归和分类都是监督学习问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代价函数"><span class="toc-number">3.2.</span> <span class="toc-text">代价函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降算法最小化代价函数"><span class="toc-number">3.3.</span> <span class="toc-text">梯度下降算法最小化代价函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#回顾线性代数知识"><span class="toc-number">4.</span> <span class="toc-text">回顾线性代数知识</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多元线性回归（multivariate-linear-regression）"><span class="toc-number">5.</span> <span class="toc-text">多元线性回归（multivariate linear regression）</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、-什么是机器学习？"><span class="toc-number">1.</span> <span class="toc-text">一、 什么是机器学习？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">1.2.</span> <span class="toc-text">分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、单变量线性回归"><span class="toc-number">2.</span> <span class="toc-text">二、单变量线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#回归和分类都是监督学习问题"><span class="toc-number">2.1.</span> <span class="toc-text">回归和分类都是监督学习问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代价函数"><span class="toc-number">2.2.</span> <span class="toc-text">代价函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降算法最小化代价函数"><span class="toc-number">2.3.</span> <span class="toc-text">梯度下降算法最小化代价函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、多元线性回归（multivariate-linear-regression）"><span class="toc-number">3.</span> <span class="toc-text">三、多元线性回归（multivariate linear regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特征归一化"><span class="toc-number">3.1.</span> <span class="toc-text">特征归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多元线性回归的梯度下降公式："><span class="toc-number">3.2.</span> <span class="toc-text">多元线性回归的梯度下降公式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特征选择和多项式"><span class="toc-number">3.3.</span> <span class="toc-text">特征选择和多项式</span></a></li></ol></li></ol>
         
     </div>
     <style>
