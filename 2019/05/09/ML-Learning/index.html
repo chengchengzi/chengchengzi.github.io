@@ -53,7 +53,22 @@
 <meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SVM其他核函数.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SVM应对多分类.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SVM逻辑回归方法选用.png">
-<meta property="og:updated_time" content="2019-05-30T02:50:05.789Z">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/K均值聚类算法.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/K均值优化目标函数.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/K均值随机初始化.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/PCA步骤.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/PCA选取k.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/异常检测算法.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/异常检测如何选择epsilon.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/多元高斯分布模型.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/原始模型与多元高斯模型对比.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/推荐算法.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/协同过滤最小化目标函数.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/协议过滤算法描述.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/BGD.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SGD.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/MBGD.png">
+<meta property="og:updated_time" content="2019-05-30T03:49:14.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML Learning">
 <meta name="twitter:description" content="吴恩达，ML课程学习笔记">
@@ -508,7 +523,116 @@
 <li>SVM 应对多分类问题<br><img src="/2019/05/09/ML-Learning/SVM应对多分类.png" alt></li>
 <li>用逻辑回归还是SVM？对于不同情况下的数据样本，选用不同的方法：<br><img src="/2019/05/09/ML-Learning/SVM逻辑回归方法选用.png" alt></li>
 </ul>
-<h1 id="十一、无监督学习"><a href="#十一、无监督学习" class="headerlink" title="十一、无监督学习"></a>十一、无监督学习</h1><h1 id="十二"><a href="#十二" class="headerlink" title="十二"></a>十二</h1><h1 id="十三"><a href="#十三" class="headerlink" title="十三"></a>十三</h1><h1 id="十四"><a href="#十四" class="headerlink" title="十四"></a>十四</h1><h1 id="十五"><a href="#十五" class="headerlink" title="十五"></a>十五</h1><h1 id="十六"><a href="#十六" class="headerlink" title="十六"></a>十六</h1>
+<h1 id="十一、无监督学习"><a href="#十一、无监督学习" class="headerlink" title="十一、无监督学习"></a>十一、无监督学习</h1><ul>
+<li>无监督还是有监督，主要在于数据样本是否带标签；</li>
+<li>无监督学习，将不带标签的数据分类，得出数据本身存在的结构；</li>
+<li>K-means(K均值)是目前最为广泛的聚类算法，算法分为两步：<ol>
+<li>Cluster assignment簇分配</li>
+<li>Move centroid 移动聚类中心<br><img src="/2019/05/09/ML-Learning/K均值聚类算法.png" alt></li>
+</ol>
+</li>
+<li>K均值优化目标函数<br><img src="/2019/05/09/ML-Learning/K均值优化目标函数.png" alt></li>
+<li>如何初始化K均值聚类算法？</li>
+<li>推荐使用随机初始化，即随机选取k个训练样本作为初始聚类中心，k &lt; m;</li>
+<li>当k较小，可以进行多次随机初始化，选择聚类效果最好的一次；</li>
+<li>当k较大，这个方法仍然有效；<br><img src="/2019/05/09/ML-Learning/K均值随机初始化.png" alt></li>
+<li>如何选取聚类数量<ol>
+<li>人工选取，根据经验估计，手动输入聚类数量；</li>
+<li>Elbow method;</li>
+<li>根据运行K均值算法的目的来选取，使用后续应用的评估标准，看哪个聚类数量能更好的应用与后续目的；</li>
+</ol>
+</li>
+</ul>
+<h1 id="十二、降维"><a href="#十二、降维" class="headerlink" title="十二、降维"></a>十二、降维</h1><ul>
+<li>第二类无监督学习问题：降维</li>
+<li>降维的目的是：<ol>
+<li>数据压缩（data compression）：可以减少存储量以及加快算法的运行速度；</li>
+<li>可视化：将数据画在2D或3D上，这样能更好的理解数据</li>
+</ol>
+</li>
+<li>如何做降维：PCA主成分分析<ol>
+<li>PCA试图找一个低维空间，然后对数据进行投影，计算样本点到投影点的最短距离，以便最小化正交投影的误差；</li>
+<li>PCA不是线性回归，这是两个截然不同的算法。线性回归的目的是拟合出一条直线，最小化样本点到直线的垂直距离（y值的距离），输入x，输出预测的y值；而PCA计算的是样本点直线的最短距离。</li>
+</ol>
+</li>
+<li>如何使用PCA降维，或者说如何找到被投影的低维空间？<br><img src="/2019/05/09/ML-Learning/PCA步骤.png" alt><ol>
+<li>数据预处理，均值标准化/特征缩放</li>
+<li>计算协方差矩阵sigma</li>
+<li>对sigma进行SVD（奇异值分解）</li>
+<li>取SVD后的U的前k个列向量，这k个列向量构成k维的低维空间</li>
+<li>计算每个样本点投影到低维空间的z</li>
+</ol>
+</li>
+<li>如何选取低维空间的维度k？<br><img src="/2019/05/09/ML-Learning/PCA选取k.png" alt></li>
+<li>压缩重现，将x_approx = U * z, x_approx将会很接近于原来的x;</li>
+<li>应用PCA的建议：<ol>
+<li>如果k &lt;&lt; n, 这是不太合适的， k比n小一些不会影响算法的性能和分类的准确率；</li>
+<li>当需要减少数据的存储或是确实证明了原始数据x无法用于计算时，才去考虑做PCA降维；</li>
+</ol>
+</li>
+</ul>
+<h1 id="十三、异常检测"><a href="#十三、异常检测" class="headerlink" title="十三、异常检测"></a>十三、异常检测</h1><ul>
+<li>高斯分布 = 正态分布</li>
+<li>异常检测算法：异常检测是指检查某个数据样本是否异常<br><img src="/2019/05/09/ML-Learning/异常检测算法.png" alt></li>
+<li>如何选择epsilon?<br><img src="/2019/05/09/ML-Learning/异常检测如何选择epsilon.png" alt></li>
+<li>用异常检测算法还是监督学习算法？当样本正常样本较多时，选用监督学习算法；当样本的异常样本较多时，且出现了异常的特征数据，用异常检测算法；</li>
+<li>当画出的直方图不是高斯分布，需要调整数据，可以对原数据取对数或开根号，转为高斯分布</li>
+<li>多元高斯分布，取不同的协方差矩阵和μ会得到不同的高斯分布模型</li>
+<li>如何将多元高斯分布应用到异常检测算法中？<br><img src="/2019/05/09/ML-Learning/多元高斯分布模型.png" alt></li>
+<li>原始模型与高斯分布模型对比：<br><img src="/2019/05/09/ML-Learning/原始模型与多元高斯模型对比.png" alt></li>
+</ul>
+<h1 id="十四、推荐系统"><a href="#十四、推荐系统" class="headerlink" title="十四、推荐系统"></a>十四、推荐系统</h1><ul>
+<li>问题：推荐系统的问题是：如何根据用户行为去预测用户感兴趣的内容并给出推荐？</li>
+<li>基于内容的推荐算法，其最优化目标函数和梯度下降：<br><img src="/2019/05/09/ML-Learning/推荐算法.png" alt></li>
+<li>协同过滤（collaborative filtering）,自动进行特征学习<ol>
+<li>最小化目标函数<br><img src="/2019/05/09/ML-Learning/协同过滤最小化目标函数.png" alt></li>
+<li>协同过滤算法描述<br><img src="/2019/05/09/ML-Learning/协议过滤算法描述.png" alt></li>
+</ol>
+</li>
+<li>可以用低秩矩阵分解进行预测，找到两个商品或是电影特征的最小距离，也就是它们的相似度，然后推荐给用户</li>
+</ul>
+<h1 id="十五、大规模机器学习"><a href="#十五、大规模机器学习" class="headerlink" title="十五、大规模机器学习"></a>十五、大规模机器学习</h1><ul>
+<li>批量梯度下降（BGD：Batch Gradient descent）:直线找到全局最小值，在每一次迭代时使用所有样本进行梯度下降，更新参数。但是当样本量很大时，二米此迭代都需要对所有的样本进行计算，训练过程很慢。可并行计算。<br><img src="/2019/05/09/ML-Learning/BGD.png" alt></li>
+<li>随机梯度下降（SGD：Stochastic Gradient descent）：曲折迂回的去找全局最小值，每次迭代使用一个样本对参数进行更新。这样做可以加快训练速度，但是准确率会下降，还可能收敛到局部最优，不易于并行计算。<br><img src="/2019/05/09/ML-Learning/SGD.png" alt></li>
+<li>小批量梯度下降（MBGD：Mini-Batch Gradient descent）:每次迭代使用batch_size个样本对参数进行更新，是BGD和SGD的折中方法。收敛速度加快，准确率比SGD高，但是batch_size选择不当，可能会出现问题。易于并行计算。<br><img src="/2019/05/09/ML-Learning/MBGD.png" alt></li>
+<li>在线学习机制：根据用户行为的变化数据，不断的进行学习，以更好的给用户推荐商品</li>
+</ul>
+<h1 id="十六、机器学习应用实例：照片OCR"><a href="#十六、机器学习应用实例：照片OCR" class="headerlink" title="十六、机器学习应用实例：照片OCR"></a>十六、机器学习应用实例：照片OCR</h1><ul>
+<li>什么是OCR？Photo OCR 全称：Photo Optical character recognition 照片光学字符识别</li>
+<li>pipline工作流：输入图片-》文字检测-》文字分割-》文字分类</li>
+<li>文字检测：使用滑动窗口分类器，预先训练好分类器，然后在图像中截取矩形框进行分类，检测是否存在文字或行人</li>
+<li>上限分析：给出工作流中每个板块最好情况下，计算分类性能，这样九可以知道应该将时间花在哪，提高哪一个模块的效果</li>
+</ul>
+<h1 id="十七、总结"><a href="#十七、总结" class="headerlink" title="十七、总结"></a>十七、总结</h1><ul>
+<li>监督学习<ol>
+<li>线性回归</li>
+<li>逻辑虎归</li>
+<li>神经网络</li>
+<li>SVM</li>
+</ol>
+</li>
+<li>无监督学习<ol>
+<li>K-means</li>
+<li>PCA</li>
+<li>异常检测</li>
+</ol>
+</li>
+<li>具体应用<ol>
+<li>推荐系统</li>
+<li>大规模机器学习</li>
+</ol>
+</li>
+<li>在建立机器学习系统时的一些建议<ol>
+<li>偏差/方差</li>
+<li>正则化</li>
+<li>评估算法性能</li>
+<li>学习曲线</li>
+<li>错误分析</li>
+<li>工作流</li>
+</ol>
+</li>
+</ul>
+
       
     </div>
     
@@ -519,7 +643,7 @@
         <p><span>本文标题:</span><a href="/2019/05/09/ML-Learning/">ML Learning</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Zhijuan</a></p>
         <p><span>发布时间:</span>2019-05-09, 21:45:14</p>
-        <p><span>最后更新:</span>2019-05-30, 10:50:05</p>
+        <p><span>最后更新:</span>2019-05-30, 11:49:14</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/05/09/ML-Learning/" title="ML Learning">https://chengchengzi.github.io/2019/05/09/ML-Learning/</a>
             <span class="copy-path" data-clipboard-text="原文: https://chengchengzi.github.io/2019/05/09/ML-Learning/　　作者: Zhijuan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -555,7 +679,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、-什么是机器学习？"><span class="toc-number">1.</span> <span class="toc-text">一、 什么是机器学习？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">1.2.</span> <span class="toc-text">分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、单变量线性回归"><span class="toc-number">2.</span> <span class="toc-text">二、单变量线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#回归和分类都是监督学习问题"><span class="toc-number">2.1.</span> <span class="toc-text">回归和分类都是监督学习问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代价函数"><span class="toc-number">2.2.</span> <span class="toc-text">代价函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降算法最小化代价函数"><span class="toc-number">2.3.</span> <span class="toc-text">梯度下降算法最小化代价函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、多元线性回归（multivariate-linear-regression）"><span class="toc-number">3.</span> <span class="toc-text">三、多元线性回归（multivariate linear regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特征归一化"><span class="toc-number">3.1.</span> <span class="toc-text">特征归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多元线性回归的梯度下降公式："><span class="toc-number">3.2.</span> <span class="toc-text">多元线性回归的梯度下降公式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特征选择和多项式"><span class="toc-number">3.3.</span> <span class="toc-text">特征选择和多项式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正规方程和梯度下降"><span class="toc-number">3.4.</span> <span class="toc-text">正规方程和梯度下降</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Logistic回归"><span class="toc-number">4.</span> <span class="toc-text">四、Logistic回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#logistic回归定义"><span class="toc-number">4.1.</span> <span class="toc-text">logistic回归定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic回归代价函数及其梯度下降"><span class="toc-number">4.2.</span> <span class="toc-text">Logistic回归代价函数及其梯度下降</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何将Logistic回归应用于多类别分类："><span class="toc-number">4.3.</span> <span class="toc-text">如何将Logistic回归应用于多类别分类：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、正则化"><span class="toc-number">5.</span> <span class="toc-text">五、正则化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法拟合的情况："><span class="toc-number">5.1.</span> <span class="toc-text">算法拟合的情况：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决overfitting问题的方差"><span class="toc-number">5.2.</span> <span class="toc-text">解决overfitting问题的方差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则化线性回归（减少参数-θ-j-）"><span class="toc-number">5.3.</span> <span class="toc-text">正则化线性回归（减少参数$θ_j$ ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则化逻辑回归"><span class="toc-number">5.4.</span> <span class="toc-text">正则化逻辑回归</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、神经网络"><span class="toc-number">6.</span> <span class="toc-text">六、神经网络</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、应用机器学习的建议"><span class="toc-number">7.</span> <span class="toc-text">八、应用机器学习的建议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#将数据分为训练集、交叉验证集或验证集、测试集"><span class="toc-number">7.1.</span> <span class="toc-text">将数据分为训练集、交叉验证集或验证集、测试集</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#九、机器学习算法性能评估（benchmark）"><span class="toc-number">8.</span> <span class="toc-text">九、机器学习算法性能评估（benchmark）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十、SVM（support-vector-machine）"><span class="toc-number">9.</span> <span class="toc-text">十、SVM（support vector machine）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十一、无监督学习"><span class="toc-number">10.</span> <span class="toc-text">十一、无监督学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十二"><span class="toc-number">11.</span> <span class="toc-text">十二</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十三"><span class="toc-number">12.</span> <span class="toc-text">十三</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十四"><span class="toc-number">13.</span> <span class="toc-text">十四</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十五"><span class="toc-number">14.</span> <span class="toc-text">十五</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十六"><span class="toc-number">15.</span> <span class="toc-text">十六</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、-什么是机器学习？"><span class="toc-number">1.</span> <span class="toc-text">一、 什么是机器学习？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">1.2.</span> <span class="toc-text">分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、单变量线性回归"><span class="toc-number">2.</span> <span class="toc-text">二、单变量线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#回归和分类都是监督学习问题"><span class="toc-number">2.1.</span> <span class="toc-text">回归和分类都是监督学习问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代价函数"><span class="toc-number">2.2.</span> <span class="toc-text">代价函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降算法最小化代价函数"><span class="toc-number">2.3.</span> <span class="toc-text">梯度下降算法最小化代价函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、多元线性回归（multivariate-linear-regression）"><span class="toc-number">3.</span> <span class="toc-text">三、多元线性回归（multivariate linear regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特征归一化"><span class="toc-number">3.1.</span> <span class="toc-text">特征归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多元线性回归的梯度下降公式："><span class="toc-number">3.2.</span> <span class="toc-text">多元线性回归的梯度下降公式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特征选择和多项式"><span class="toc-number">3.3.</span> <span class="toc-text">特征选择和多项式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正规方程和梯度下降"><span class="toc-number">3.4.</span> <span class="toc-text">正规方程和梯度下降</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Logistic回归"><span class="toc-number">4.</span> <span class="toc-text">四、Logistic回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#logistic回归定义"><span class="toc-number">4.1.</span> <span class="toc-text">logistic回归定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic回归代价函数及其梯度下降"><span class="toc-number">4.2.</span> <span class="toc-text">Logistic回归代价函数及其梯度下降</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何将Logistic回归应用于多类别分类："><span class="toc-number">4.3.</span> <span class="toc-text">如何将Logistic回归应用于多类别分类：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、正则化"><span class="toc-number">5.</span> <span class="toc-text">五、正则化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法拟合的情况："><span class="toc-number">5.1.</span> <span class="toc-text">算法拟合的情况：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决overfitting问题的方差"><span class="toc-number">5.2.</span> <span class="toc-text">解决overfitting问题的方差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则化线性回归（减少参数-θ-j-）"><span class="toc-number">5.3.</span> <span class="toc-text">正则化线性回归（减少参数$θ_j$ ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则化逻辑回归"><span class="toc-number">5.4.</span> <span class="toc-text">正则化逻辑回归</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、神经网络"><span class="toc-number">6.</span> <span class="toc-text">六、神经网络</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、应用机器学习的建议"><span class="toc-number">7.</span> <span class="toc-text">八、应用机器学习的建议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#将数据分为训练集、交叉验证集或验证集、测试集"><span class="toc-number">7.1.</span> <span class="toc-text">将数据分为训练集、交叉验证集或验证集、测试集</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#九、机器学习算法性能评估（benchmark）"><span class="toc-number">8.</span> <span class="toc-text">九、机器学习算法性能评估（benchmark）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十、SVM（support-vector-machine）"><span class="toc-number">9.</span> <span class="toc-text">十、SVM（support vector machine）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十一、无监督学习"><span class="toc-number">10.</span> <span class="toc-text">十一、无监督学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十二、降维"><span class="toc-number">11.</span> <span class="toc-text">十二、降维</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十三、异常检测"><span class="toc-number">12.</span> <span class="toc-text">十三、异常检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十四、推荐系统"><span class="toc-number">13.</span> <span class="toc-text">十四、推荐系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十五、大规模机器学习"><span class="toc-number">14.</span> <span class="toc-text">十五、大规模机器学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十六、机器学习应用实例：照片OCR"><span class="toc-number">15.</span> <span class="toc-text">十六、机器学习应用实例：照片OCR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十七、总结"><span class="toc-number">16.</span> <span class="toc-text">十七、总结</span></a></li></ol>
         
     </div>
     <style>
