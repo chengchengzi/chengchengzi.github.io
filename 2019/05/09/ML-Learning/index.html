@@ -43,7 +43,17 @@
 <meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/反向传播3.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/双侧导数检验.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/神经网络训练过程.png">
-<meta property="og:updated_time" content="2019-05-29T09:53:33.162Z">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/判断高偏差和高方差.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/正则化参数与高偏差高方差.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/学习曲线.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/benchmark.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SVM优化函数.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SVM求解参数.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SVM无核.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SVM其他核函数.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SVM应对多分类.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/05/09/ML-Learning/SVM逻辑回归方法选用.png">
+<meta property="og:updated_time" content="2019-05-30T02:50:05.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML Learning">
 <meta name="twitter:description" content="吴恩达，ML课程学习笔记">
@@ -460,15 +470,45 @@
 <li>如何解决？使用随机初始化为一个接近于0的范围,在-ε，ε]之间的数即可；</li>
 </ul>
 </li>
-<li>神经网络训练过程<br>  分为6步：<pre><code>- 构建一个神经网络并随机初始化权重（通常初始化为很小的值，接近于0）；
-- 前向传播算法得到h()的值，也就是输出y的向量；
-- 计算代价函数J；
-- 执行反向传播算法计算偏导数
-- 对所有的样本进行前向和反向传播算法后，得出激活项a^(l) 和激活项误差theta^(l)的值（通过这两个值可以计算出代价函数J的偏导数）后，进行梯度检查，检查实现的反向传播算法是否正确；正确则停用梯度检查；
-- 使用梯度下降或是其他高级优化算法以及反向传播，得出最优的J，训练完成。
+<li>神经网络训练过程<br>  分为6步：<pre><code>1. 构建一个神经网络并随机初始化权重（通常初始化为很小的值，接近于0）；
+2. 前向传播算法得到h()的值，也就是输出y的向量；
+3. 计算代价函数J；
+4. 执行反向传播算法计算偏导数
+5. 对所有的样本进行前向和反向传播算法后，得出激活项a^(l) 和激活项误差theta^(l)的值（通过这两个值可以计算出代价函数J的偏导数）后，进行梯度检查，检查实现的反向传播算法是否正确；正确则停用梯度检查；
+6. 使用梯度下降或是其他高级优化算法以及反向传播，得出最优的J，训练完成。
 </code></pre><img src="/2019/05/09/ML-Learning/神经网络训练过程.png" alt></li>
 </ul>
-<h1 id="八"><a href="#八" class="headerlink" title="八"></a>八</h1><h1 id="九"><a href="#九" class="headerlink" title="九"></a>九</h1><h1 id="十"><a href="#十" class="headerlink" title="十"></a>十</h1><h1 id="十一"><a href="#十一" class="headerlink" title="十一"></a>十一</h1><h1 id="十二"><a href="#十二" class="headerlink" title="十二"></a>十二</h1><h1 id="十三"><a href="#十三" class="headerlink" title="十三"></a>十三</h1><h1 id="十四"><a href="#十四" class="headerlink" title="十四"></a>十四</h1><h1 id="十五"><a href="#十五" class="headerlink" title="十五"></a>十五</h1><h1 id="十六"><a href="#十六" class="headerlink" title="十六"></a>十六</h1>
+<h1 id="八、应用机器学习的建议"><a href="#八、应用机器学习的建议" class="headerlink" title="八、应用机器学习的建议"></a>八、应用机器学习的建议</h1><h2 id="将数据分为训练集、交叉验证集或验证集、测试集"><a href="#将数据分为训练集、交叉验证集或验证集、测试集" class="headerlink" title="将数据分为训练集、交叉验证集或验证集、测试集"></a>将数据分为训练集、交叉验证集或验证集、测试集</h2><ul>
+<li>对测试机的泛化误差进行多次度量，调整模型和超参数来得到拟合测试集的最佳模型。也就是说，这个算法模型更多是为测试集准备的，要求对新样本有很好的泛化能力。</li>
+<li>如何做？做法是从数据中分出一个验证集，这样，模型可以适用多个不同的超参数，然后通过验证集，选择最好的模型及其相应的超参数。最后，使用测试进行测试，得到泛化误差的估值。</li>
+<li><p>为了避免验证集浪费太多的训练数据，我们常用的技术就是交叉验证。即将训练集分成若干个互补的子集，然后每个模型都通过这些子集的不同组合来训练，之后用剩余的子集进行验证。当我们选择了一个模型和超参数之后，在对整个训练集训练一次，最后再用测试集测量泛化误差。</p>
+</li>
+<li><p>如何判断拟合曲线是高偏差（欠拟合）还是高方差（过拟合）<br><img src="/2019/05/09/ML-Learning/判断高偏差和高方差.png" alt></p>
+</li>
+<li>正则化参数lanbda与高偏差、高方差之间的联系<br><img src="/2019/05/09/ML-Learning/正则化参数与高偏差高方差.png" alt></li>
+<li>学习曲线可以作为一种工具，用来检查算法是否一切正常或判断算法处于高偏差、高方差还是两者都有，从而改进算法的表现：<br><img src="/2019/05/09/ML-Learning/学习曲线.png" alt></li>
+<li>设计复杂的机器学习算法过程中，如何在有限的时间内，让分类器具有高精度或是低错误率？推荐的方法：<ol>
+<li>快速实现一个简单的学习算法</li>
+<li>画学习曲线</li>
+<li>进行误差分析</li>
+<li>改进学习算法，不断地去尝试新方法，推荐在交叉验证集上误差分析。</li>
+</ol>
+</li>
+</ul>
+<h1 id="九、机器学习算法性能评估（benchmark）"><a href="#九、机器学习算法性能评估（benchmark）" class="headerlink" title="九、机器学习算法性能评估（benchmark）"></a>九、机器学习算法性能评估（benchmark）</h1><ul>
+<li>准确率、精准率、召回率、F值<br><img src="/2019/05/09/ML-Learning/benchmark.png" alt></li>
+</ul>
+<h1 id="十、SVM（support-vector-machine）"><a href="#十、SVM（support-vector-machine）" class="headerlink" title="十、SVM（support vector machine）"></a>十、SVM（support vector machine）</h1><ul>
+<li>SVM又称为大间距分类器，大间距指分类曲线与正负样本之间的距离都很远。由于在分类数据时会尽量用大的间距分类，这使得SVM具有很好的鲁棒性</li>
+<li>SVM的总体优化目标<br><img src="/2019/05/09/ML-Learning/SVM优化函数.png" alt></li>
+<li>样本的相似函数(similarity function) = 核函数;</li>
+<li>参数C 和 $σ^2$， 参数C大，高方差；参数C小，高偏差;</li>
+<li>使用SVM工具包,如liblinear,libsvm…去求解参数θ？<br><img src="/2019/05/09/ML-Learning/SVM求解参数.png" alt></li>
+<li>线性核函数 = SVM 无核<br><img src="/2019/05/09/ML-Learning/SVM无核.png" alt><br><img src="/2019/05/09/ML-Learning/SVM其他核函数.png" alt></li>
+<li>SVM 应对多分类问题<br><img src="/2019/05/09/ML-Learning/SVM应对多分类.png" alt></li>
+<li>用逻辑回归还是SVM？对于不同情况下的数据样本，选用不同的方法：<br><img src="/2019/05/09/ML-Learning/SVM逻辑回归方法选用.png" alt></li>
+</ul>
+<h1 id="十一、无监督学习"><a href="#十一、无监督学习" class="headerlink" title="十一、无监督学习"></a>十一、无监督学习</h1><h1 id="十二"><a href="#十二" class="headerlink" title="十二"></a>十二</h1><h1 id="十三"><a href="#十三" class="headerlink" title="十三"></a>十三</h1><h1 id="十四"><a href="#十四" class="headerlink" title="十四"></a>十四</h1><h1 id="十五"><a href="#十五" class="headerlink" title="十五"></a>十五</h1><h1 id="十六"><a href="#十六" class="headerlink" title="十六"></a>十六</h1>
       
     </div>
     
@@ -479,7 +519,7 @@
         <p><span>本文标题:</span><a href="/2019/05/09/ML-Learning/">ML Learning</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Zhijuan</a></p>
         <p><span>发布时间:</span>2019-05-09, 21:45:14</p>
-        <p><span>最后更新:</span>2019-05-29, 17:53:33</p>
+        <p><span>最后更新:</span>2019-05-30, 10:50:05</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/05/09/ML-Learning/" title="ML Learning">https://chengchengzi.github.io/2019/05/09/ML-Learning/</a>
             <span class="copy-path" data-clipboard-text="原文: https://chengchengzi.github.io/2019/05/09/ML-Learning/　　作者: Zhijuan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -515,7 +555,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、-什么是机器学习？"><span class="toc-number">1.</span> <span class="toc-text">一、 什么是机器学习？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">1.2.</span> <span class="toc-text">分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、单变量线性回归"><span class="toc-number">2.</span> <span class="toc-text">二、单变量线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#回归和分类都是监督学习问题"><span class="toc-number">2.1.</span> <span class="toc-text">回归和分类都是监督学习问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代价函数"><span class="toc-number">2.2.</span> <span class="toc-text">代价函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降算法最小化代价函数"><span class="toc-number">2.3.</span> <span class="toc-text">梯度下降算法最小化代价函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、多元线性回归（multivariate-linear-regression）"><span class="toc-number">3.</span> <span class="toc-text">三、多元线性回归（multivariate linear regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特征归一化"><span class="toc-number">3.1.</span> <span class="toc-text">特征归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多元线性回归的梯度下降公式："><span class="toc-number">3.2.</span> <span class="toc-text">多元线性回归的梯度下降公式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特征选择和多项式"><span class="toc-number">3.3.</span> <span class="toc-text">特征选择和多项式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正规方程和梯度下降"><span class="toc-number">3.4.</span> <span class="toc-text">正规方程和梯度下降</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Logistic回归"><span class="toc-number">4.</span> <span class="toc-text">四、Logistic回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#logistic回归定义"><span class="toc-number">4.1.</span> <span class="toc-text">logistic回归定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic回归代价函数及其梯度下降"><span class="toc-number">4.2.</span> <span class="toc-text">Logistic回归代价函数及其梯度下降</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何将Logistic回归应用于多类别分类："><span class="toc-number">4.3.</span> <span class="toc-text">如何将Logistic回归应用于多类别分类：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、正则化"><span class="toc-number">5.</span> <span class="toc-text">五、正则化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法拟合的情况："><span class="toc-number">5.1.</span> <span class="toc-text">算法拟合的情况：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决overfitting问题的方差"><span class="toc-number">5.2.</span> <span class="toc-text">解决overfitting问题的方差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则化线性回归（减少参数-θ-j-）"><span class="toc-number">5.3.</span> <span class="toc-text">正则化线性回归（减少参数$θ_j$ ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则化逻辑回归"><span class="toc-number">5.4.</span> <span class="toc-text">正则化逻辑回归</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、神经网络"><span class="toc-number">6.</span> <span class="toc-text">六、神经网络</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八"><span class="toc-number">7.</span> <span class="toc-text">八</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#九"><span class="toc-number">8.</span> <span class="toc-text">九</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十"><span class="toc-number">9.</span> <span class="toc-text">十</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十一"><span class="toc-number">10.</span> <span class="toc-text">十一</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十二"><span class="toc-number">11.</span> <span class="toc-text">十二</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十三"><span class="toc-number">12.</span> <span class="toc-text">十三</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十四"><span class="toc-number">13.</span> <span class="toc-text">十四</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十五"><span class="toc-number">14.</span> <span class="toc-text">十五</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十六"><span class="toc-number">15.</span> <span class="toc-text">十六</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、-什么是机器学习？"><span class="toc-number">1.</span> <span class="toc-text">一、 什么是机器学习？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-number">1.2.</span> <span class="toc-text">分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、单变量线性回归"><span class="toc-number">2.</span> <span class="toc-text">二、单变量线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#回归和分类都是监督学习问题"><span class="toc-number">2.1.</span> <span class="toc-text">回归和分类都是监督学习问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代价函数"><span class="toc-number">2.2.</span> <span class="toc-text">代价函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#梯度下降算法最小化代价函数"><span class="toc-number">2.3.</span> <span class="toc-text">梯度下降算法最小化代价函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、多元线性回归（multivariate-linear-regression）"><span class="toc-number">3.</span> <span class="toc-text">三、多元线性回归（multivariate linear regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特征归一化"><span class="toc-number">3.1.</span> <span class="toc-text">特征归一化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多元线性回归的梯度下降公式："><span class="toc-number">3.2.</span> <span class="toc-text">多元线性回归的梯度下降公式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特征选择和多项式"><span class="toc-number">3.3.</span> <span class="toc-text">特征选择和多项式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正规方程和梯度下降"><span class="toc-number">3.4.</span> <span class="toc-text">正规方程和梯度下降</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Logistic回归"><span class="toc-number">4.</span> <span class="toc-text">四、Logistic回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#logistic回归定义"><span class="toc-number">4.1.</span> <span class="toc-text">logistic回归定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic回归代价函数及其梯度下降"><span class="toc-number">4.2.</span> <span class="toc-text">Logistic回归代价函数及其梯度下降</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何将Logistic回归应用于多类别分类："><span class="toc-number">4.3.</span> <span class="toc-text">如何将Logistic回归应用于多类别分类：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、正则化"><span class="toc-number">5.</span> <span class="toc-text">五、正则化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法拟合的情况："><span class="toc-number">5.1.</span> <span class="toc-text">算法拟合的情况：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决overfitting问题的方差"><span class="toc-number">5.2.</span> <span class="toc-text">解决overfitting问题的方差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则化线性回归（减少参数-θ-j-）"><span class="toc-number">5.3.</span> <span class="toc-text">正则化线性回归（减少参数$θ_j$ ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则化逻辑回归"><span class="toc-number">5.4.</span> <span class="toc-text">正则化逻辑回归</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、神经网络"><span class="toc-number">6.</span> <span class="toc-text">六、神经网络</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、应用机器学习的建议"><span class="toc-number">7.</span> <span class="toc-text">八、应用机器学习的建议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#将数据分为训练集、交叉验证集或验证集、测试集"><span class="toc-number">7.1.</span> <span class="toc-text">将数据分为训练集、交叉验证集或验证集、测试集</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#九、机器学习算法性能评估（benchmark）"><span class="toc-number">8.</span> <span class="toc-text">九、机器学习算法性能评估（benchmark）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十、SVM（support-vector-machine）"><span class="toc-number">9.</span> <span class="toc-text">十、SVM（support vector machine）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十一、无监督学习"><span class="toc-number">10.</span> <span class="toc-text">十一、无监督学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十二"><span class="toc-number">11.</span> <span class="toc-text">十二</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十三"><span class="toc-number">12.</span> <span class="toc-text">十三</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十四"><span class="toc-number">13.</span> <span class="toc-text">十四</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十五"><span class="toc-number">14.</span> <span class="toc-text">十五</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#十六"><span class="toc-number">15.</span> <span class="toc-text">十六</span></a></li></ol>
         
     </div>
     <style>
