@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Zhijuan&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/10/08/《Effective-C-》-阅读笔记/默认函数.png">
-<meta property="og:updated_time" content="2019-10-08T06:10:28.066Z">
+<meta property="og:updated_time" content="2019-10-08T06:19:00.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Effective C++》-阅读笔记">
 <meta name="twitter:image" content="https://chengchengzi.github.io/2019/10/08/《Effective-C-》-阅读笔记/默认函数.png">
@@ -322,62 +322,39 @@
 
 </the></li>
 </ul>
-<h1 id="阅读学习《Effective-C-》"><a href="#阅读学习《Effective-C-》" class="headerlink" title="阅读学习《Effective C++》"></a>阅读学习《Effective C++》</h1><h2 id="一、让自己习惯C"><a href="#一、让自己习惯C" class="headerlink" title="一、让自己习惯C++"></a>一、让自己习惯C++</h2><ul>
-<li><ol>
+<h1 id="阅读学习《Effective-C-》"><a href="#阅读学习《Effective-C-》" class="headerlink" title="阅读学习《Effective C++》"></a>阅读学习《Effective C++》</h1><h2 id="一、让自己习惯C"><a href="#一、让自己习惯C" class="headerlink" title="一、让自己习惯C++"></a>一、让自己习惯C++</h2><ol>
 <li>条款01：视为C++一个语言联邦,  C++是从C、面向对象、模板和STL四个次语言组成的一体语言，<br>每个次语言都有自己的规约；</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>条款01：尽量以const,enmu，inline代替 #define；<br>   ○ string对象通常比其前辈char * a合宜；<br>   ○ 无法利用#define创建一个class专属常量，因为#define并不重视作用域；<br>   ○ 对于单纯常量，最好以const对象或enums替换#defines；<br>   ○ 对于形似函数的宏，最好改用inline函数替换#defines；</li>
-</ol>
-</li>
-<li><ol start="3">
+<li>条款01：尽量以const,enmu，inline代替 #define；<pre><code>○ string对象通常比其前辈char * a合宜；
+○ 无法利用#define创建一个class专属常量，因为#define并不重视作用域；
+○ 对于单纯常量，最好以const对象或enums替换#defines；
+○ 对于形似函数的宏，最好改用inline函数替换#defines；
+</code></pre></li>
 <li>条款03：尽可能使用const。如果关键字const出现在星号左边，表示被指物是常量，如果出现在星号右边，表示指针自身是常量（const widget<em> pw = widget const </em> pw）；</li>
+<li>条款04：确保对象在使用前已被初始化；<pre><code>○ 永远在使用对象之前先将它初始化；
+○ 为内置型对象进行手工初始化，因为不保证初始化它们；
+○ 确保每一个构造函数都将对象的每一个成员初始化；
+○ 构造函数最好使用成员初值列，而不要在构造函数体内进行赋值操作。初始值列列出的成员变量，其排列次序应该与它们在class中声明的次序相同；
+  ○ 以local static 对象替换non-local static对象，运用reference-returning，防止“跨单元初始化次序”；
+</code></pre></li>
 </ol>
-</li>
-<li><ol start="4">
-<li>条款04：确保对象在使用前已被初始化；<br>   ○ 永远在使用对象之前先将它初始化；<br>   ○ 为内置型对象进行手工初始化，因为不保证初始化它们；<br>   ○ 确保每一个构造函数都将对象的每一个成员初始化；<br>   ○ 构造函数最好使用成员初值列，而不要在构造函数体内进行赋值操作。初始值列列出的成员变量，其排列次序应该与它们在class中声明的次序相同；</li>
-</ol>
-</li>
-<li><ol start="5">
-<li>以local static 对象替换non-local static对象，运用reference-returning，防止“跨单元初始化次序”；</li>
-</ol>
-</li>
-</ul>
-<h2 id="二、构造-析构-赋值运算"><a href="#二、构造-析构-赋值运算" class="headerlink" title="二、构造/析构/赋值运算"></a>二、构造/析构/赋值运算</h2><ul>
-<li><ol start="5">
+<h2 id="二、构造-析构-赋值运算"><a href="#二、构造-析构-赋值运算" class="headerlink" title="二、构造/析构/赋值运算"></a>二、构造/析构/赋值运算</h2><ol start="5">
 <li>条款05：了解C++默默编写并调用哪些函数<br>编译器会自动为class创建默认构造函数，copy构造函数，copy assignment操作符以及析构函数；<br><img src="/2019/10/08/《Effective-C-》-阅读笔记/默认函数.png" alt="默认函数"></li>
-</ol>
-</li>
-<li><ol start="6">
 <li>条款06：若不想使用编译器自动生成的函数，就应自己明确声明，做法是：将相应的成员函数声明为private，且不予以实现，也就是仅仅只声明而已。或者使用像Uncopyable 这样的base class；</li>
-</ol>
-</li>
-<li><ol start="7">
-<li>条款07：为多态基类声明virtual析构函数；<br>   ○ classes的设计目的如果不是作为base classes使用，或不是未来具备多态性，就不该声明virtual析构函数；</li>
-</ol>
-</li>
-<li><ol start="8">
-<li>条款08：别让异常逃离析构函数<br>   ○ 析构函数吐出异常就是危险，总会带来“过早结束程序”或“发生不明确行为”的风险；<br>   ○ 析构函数尽量不要吐出异常，如果一个被析构函数调用的函数可能抛出异常，析构函数应该捕捉任何异常，然后吞下这些异常（不传播）或结束程序；<br>   ○ 如果客户需要对某个操作函数运行期间抛出的异常做出翻译，那么class应该提供一个普通（而非析构函数中）执行该操作。</li>
-</ol>
-</li>
-<li><ol start="9">
+<li>条款07：为多态基类声明virtual析构函数；<pre><code>○ classes的设计目的如果不是作为base classes使用，或不是未来具备多态性，就不该声明virtual析构函数；
+</code></pre></li>
+<li>条款08：别让异常逃离析构函数<pre><code>○ 析构函数吐出异常就是危险，总会带来“过早结束程序”或“发生不明确行为”的风险；
+○ 析构函数尽量不要吐出异常，如果一个被析构函数调用的函数可能抛出异常，析构函数应该捕捉任何异常，然后吞下这些异常（不传播）或结束程序；
+○ 如果客户需要对某个操作函数运行期间抛出的异常做出翻译，那么class应该提供一个普通（而非析构函数中）执行该操作。
+</code></pre></li>
 <li>条款09：在构造合析构期间不要使用virtual函数，子类构造函数先构造父类，再构造子类。</li>
-</ol>
-</li>
-<li><ol start="10">
 <li>条款10：令赋值操作符返回一个reference to *this;</li>
+<li>条款11：在operator=中处理自我赋值；<pre><code>○ 为了确保对象自我赋值时operator=有良好行，可以采用比较“来源对象”和“目标对象”的地址，周到的语句顺序以及copy-and-swap；
+</code></pre></li>
+<li>条款12：复制对象时不要忘记其每一个成分；<pre><code>○ 当编写一个copying函数时，应当确保复制所以local成员变量和调用所有父类的适当的copying函数；
+○ 不要用copy assignment操作符调用copy函数；
+○ 不要尝试以某个copying函数实现另一个copying函数，应该将共同技能放进第三个函数中，并被两个coping函数共同调用；
+</code></pre></li>
 </ol>
-</li>
-<li><ol start="11">
-<li>条款11：在operator=中处理自我赋值；<br>  ○ 为了确保对象自我赋值时operator=有良好行，可以采用比较“来源对象”和“目标对象”的地址，周到的语句顺序以及copy-and-swap；</li>
-</ol>
-</li>
-<li><ol start="12">
-<li>条款12：复制对象时不要忘记其每一个成分；<br>  ○ 当编写一个copying函数时，应当确保复制所以local成员变量和调用所有父类的适当的copying函数；<br>  ○ 不要用copy assignment操作符调用copy函数；<br>  ○ 不要尝试以某个copying函数实现另一个copying函数，应该将共同技能放进第三个函数中，并被两个coping函数共同调用；</li>
-</ol>
-</li>
-</ul>
 <h2 id="三、资源管理"><a href="#三、资源管理" class="headerlink" title="三、资源管理"></a>三、资源管理</h2><ol start="13">
 <li>条款13：对象资源管理：<pre><code>○ 为了防止资源泄漏，使用RAII对象，两个常被使用的RAII classes 分别是auto_ptr和shared_ptr；
 ○ 智能指针其析构函数自动对其所指的对象调用delete；
@@ -386,70 +363,153 @@
 </code></pre></li>
 <li>条款14：在资源管理类中小心coping行为：<pre><code>○ 复制RAII对象必须一并复制它所管理的资源，即资源的copying行为决定了RAII对象的copying；
 ○ 普遍而常见的RAII类的copying是：抑制copying、施以引用计数法；
-</code></pre><ol start="15">
-<li>条款15：在资源管理类中提供对原始资源的访问：<br>○ Auto_ptr 和 shared_ptr重载了指针取值操作符（-&gt;）和（*），允许隐式转换至底部原始指针，也可以根基需求提供一个显示的转换函数；</li>
-<li>条款16：成对使用new和delete时要采取相同形式：<br>○ 在new表达式中使用 [] ，必须在相应的delete表达式中也使用 [] ，如果在new表达式中不使用 [] ，一定不要在相应的delete表达式中使用 [] 。</li>
-<li>条款17：以独立的指针将new对象置入智能指针<br>○ 以独立语句将new对象存储于智能指针内，如果不这样做，一旦异常被抛出，又可能导致难以察觉的资源泄漏。举例：<pre><code>int poriority();
-void processWidget(std::tr1::shared_ptr&lt;Widget&gt; pw, int poriority);
-//调用processWidget函数
-processWidget（std::tr1::shared_ptr&lt;Widget&gt; (new Widget), poririty()); //不要用这种方式调用
-Std::tr1::shared_ptr&lt;Widget&gt; pw(new Widget);  //放到单独语句处理，再用于调用
-processWidget(pw, poririty()); 
-</code></pre>四、设计与声明</li>
-<li>条款18：让接口容易被正确使用，不易被误用<br>○ shared_ptr用一个比较好的性质是：它会自动使用它的”每个指针专属的删除器“，因而消除了一个潜在的客户错误，cross-DLL problem；<br>○ 促进接口的正确使用办法：保持接口的一致性，以及内置类型的行为兼容；<br>○ 阻止接口误用的方法：建立新类型，限制类型上的操作，束缚对象，消除客户的资源管理责任；</li>
-<li>条款19：设计class犹如设计type</li>
-<li>条款20：宁以为pass-by-reference-to-const替换pass-by-value<br>○ 当对象是内置类型和stl的迭代器和函数对象时，推荐使用pass-by-value；<br>○ 当对象是用户自定义类型时，使用pass-byreference-to-const（指针传递）；<pre><code>§ 原因：对于用户自定义类型，其大小容易有所变化，而且以指针传递效率更高；
-</code></pre>○ 使用pass-by-value会引起耗的原因： 对象的copy构造函数会产出很多对象的副本；</li>
-<li>条款21：当必须返回对象时，不要尝试返回reference（引用）：<br>○ reference仅是个名字，代表某个既有对象，是某物的另一个名称；<br>○ 绝不要返回pointer或reference指向一个local stack对象，或是返回reference指向一个heap-allocated对象，或返回pointer或reference指向一个local static对象而有可能同时需要多个这样的对象。</li>
-<li>条款22：将成员变量声明为private<br>○ 这样做为了保证封装性；<br>○ protected并不比pucblic更具有封装性；</li>
-<li>条款23：宁以non-member、non-friend函数替换member函数：（？？？）<br>○ 推崇封装性的原因：使我们改变事物却只影响少部分客户；<br>○ friends函数对private 成员的访问权力和member函数相同；<br>○ 只因为封装性而让函数成为class的non-member，并不意味这它不可以是另一个class的member（所有函数不一定必须都放在一个class内）；<br>○ 以non-member、non-friend函数替换member函数，这样做可以增加封装性，包裹弹性和技能扩充性；</li>
-<li>条款24：若需要为某个函数的所有参数进行类型转换，建议采用non-member函数；<br>○ 因为这样做允许编译器在每一个实参上执行隐式类型转换；<br>○ member函数的反面是non-member函数，不是friend函数；<br>五、实现</li>
-<li>条款25：考虑写出一个不抛异常的swap函数<br>○ 当std::swap对用户自定义类型的效率不高，提供一个swap成员函数，并确定这个函数不会抛出异常；<br>○ 如果自己提供了一个member swap函数，也该提供一个non-member swap来调用前者；</li>
-<li>条款26：尽可能延后变量定义式的出现。这样做可增加程序的清晰度并改善程序效率；</li>
-<li>条款27：尽力少做转型动作；<br>○ 优良的c++代码很少使用转型<br>○ 如果可以，尽力避免转型，试着发展无需转型的替代设计；<br>○ 如果转型是必要的，试着将它隐藏再某个函数背后；这样，客户随后调用该函数；<br>○ 使用新式转型，不要使用旧式转型；</li>
-<li>条款28：避免返回handles（包括references、指针、迭代器）指向对象内部成分，这样做可以增加封装性。</li>
-<li>条款29：为“异常安全”努力是值得的<br>○ 异常安全函数即使发生异常也不会泄漏资源或不允许任何数据结构败坏，有三种保证：基本型，强烈型，不抛异常型。<br>○ 强烈保证往往能以copy-and-swap实现出来，但并非具备现实意义；<br>○ 如何做才能让代码具备异常安全性：<pre><code>§ 首先是“以对象管理资源”(智能指针)，这样可以阻止资源泄漏；
-§ 然后挑选三个“异常安全保证”中的一个实现；
-§ 最后，将这些决定写成文档，便于用户使用和后续维护。
 </code></pre></li>
-<li>条款30：透彻了解inlining的里里外外<br>○ 将大多数的inlining限制在小型、被频繁调用的函数身上；<br>○ 不要只因为founction templates出现在头文件，就将它们声明为inline；<br>○ inline意味着执行前，先将调用动作替换为被调用函数的本体；<br>○ 大部分编译器拒绝将太过于复杂的函数inlining。</li>
-<li>条款31：将文件间的编译依存关系降到最低<br>○ 支持“编译依yi存最小化”的一般构想是“，相依于声明式，不要相依定义式，接口和实现分离；<br>○ 程序的头文件应该都放的是声明式；<br>六、继承与面向对象设计</li>
-<li>条款32：public继承意味着is-a，适用于base class身上的每一件事也适用于derived class。例如：学生student class 继承人类 person class，每个学生都是人，但不是人人都是学生；</li>
-<li>条款33：避免遮掩继承而来的名称：<br>○ Derived classes内的名称会遮掩base classes内的名称（隐藏），局部同名变量会遮掩全局变量；<br>○ 为了避免这样的问题：可以使用using声明式或转交函数；</li>
-<li>条款34：区分接口继承和实现<br>○ 接口继承和实现继承不同。在public继承之下，derived classes总是继承base classes的接口；<br>○ Pure virtual 函数指具体指定接口继承；<br>○ 非纯虚函数具体指定接口以及缺省实现；<br>○ 非虚函数具体指定接口继承以及强制性实现继承；</li>
-<li>条款35：考虑virtual函数意外的其他选择<br>○ virtual函数的替代方案包括NVI手法以及Strategy设计模式的多种形式（NVI手法：令base内的一个public non-virtual函数调用private virtual函数，后者可被derived class 重新定义，这样做还可以为被调用的virtual函数进行上下管理）；</li>
-<li>条款36：任何情况下都不该重新定义继承而来的non-virtual函数<br>○ base内的析构函数应该是virtual；<br>○ virtual函数是动态绑定，如果mf是个virtual函数，不论是通过pB或是pD调用mf。都是导致调用D::mf（class D : public class B）。</li>
-<li>条款37：绝不重新定义继承而来的缺省参数值，因为virtual是动态绑定的，而缺省参数值却是静态绑定。</li>
-<li>条款38：通过复合塑模出 has-a 或 “根据某物实现出”:<br>○ 复合式类型间的一种关系，当某种类型的对象内含其他种类的对象时，便是这种关系；<br>○ 复合和 public 继承完全不同；<br>○ 在应用域，复合意味着 has-a ，在实现域 复合意味着 ”根据某物实现出“；</li>
-<li>条款39：明智而谨慎的使用 private 继承：<br>○ 宁可复用既有代码，尽量少写新代码；<br>○ private继承行为规则：<pre><code>§ 如果classes 之间的继承关系是private，编译器不会自动将一个 derived class对象转换为一个base class对象；
-§ 由 private base class 继承而来的所有成员，在derived class 中都将变成private属性，即使它们在base class 中原本是protected 或public属性；
-</code></pre>○ Private 意味着根据某物实现出，通常比复合的级别低。当derived class 需要访问protected base class 的成员 或需要重新定义继承而来的virtual函数时，才考虑private继承；<br>七、模板与泛型编程</li>
-<li>条款40：明智而谨慎的使用多继承：<br>○ 多继承比单一继承复杂，它可能新的歧义；<br>○ 虚拟继承会增加大小、速度、初始化复杂度等等成本；<br>○ 多重继承由正当用途，比如：public继承某个接口类和private继承某个协助实现的class相结合时；<br>○ 对虚拟继承的建议：<pre><code>§ 非必要不要使用 virtual bases，平常请使用non-virtual继承；
-§ 如果必须使用virtual base classes，尽可能避免在其中放置数据；
+<li>条款15：在资源管理类中提供对原始资源的访问：<pre><code>○ Auto_ptr 和 shared_ptr重载了指针取值操作符（-&gt;）和（*），允许隐式转换至底部原始指针，也可以根基需求提供一个显示的转换函数；
 </code></pre></li>
-<li>条款41：了解隐式接口编程和编译期多态<br>○ Classes 和 templates 都支持接口和多态；<br>○ Classes 的接口是显示的，多态则是通过virtual函数发生于运行期；<br>○ template参数而言，接口是隐式的，多态发生于编译器；</li>
-<li>条款42：了解typename的双重意义<br>○ 声明template参数时，前缀关键字class和typename可互换；</li>
-<li>条款43：学习处理模板化基类内的名称<br>○ 可在derived class templates内通过 this 指针指向base class templates内的成员，或者由一个明确写出的“ base class 资格修饰符“完成；</li>
-<li>条款44：将与参数无关的代码抽离templates<br>○ template生成多个classs和多个函数，任何template代码都不该与某个造成膨胀的template参数产生互相依赖的关系；<br>○ 因非类型模板参数造成的代码膨胀，可以以函数参数或成员变量替换替换template参数；</li>
-<li>条款45：运用成员函数模板接受作用兼容类型<br>○ 建议使用member function template（成员函数模板）生成“可接受所有兼容类型”的函数；<br>○ 如果声明member templates 用于“泛化copy构造”或“泛化assignment操作”的同时，还需要声明正常的copy构造函数和copy assignment操作符；</li>
-<li>条款46：需要类型转换时为模板定义非成员函数<br>○ 在编写class template时，当提供“与此template相关”的函数支持“所有参数的隐士转换类型”时，定义这些函数为 class template内部的 friend 函数；</li>
-<li>条款47：请使用 traits classes表现类型信息；<br>○ STL提供5种迭代器：input、output、forward、Bidirectional、random access<br>○ traits ：特性萃取技术，提取被传进对象的返回类型，让同一个接口实现对应的功能；<br>○ traits使得类型相关信息在编译器可以使用，以temmplate和templates特化完成实现；</li>
-<li>条款48：认识template元编程：<br>○ Template metaprogramming（TMP,模板元编程）可将工作由运行期移往编译器；<br>八、定制new和delete</li>
-<li>条款49：了解new-handle的行为<br>○ set-new-handle允许客户指定一个函数，在内存分配无法满足时被调用；</li>
-<li>条款50：了解new和delete合理替换时机<br>○ 以下理由需要自定义new和delete：<pre><code>§ 为了检测运用错误；
-§ 为了收集动态分配内存之使用统计信息；
-§ 为了增加分配和归还的时速；
-§ 为了降低缺省内存管理器带来额外开销；
-§ 为了弥补缺省分配器中的非最佳齐位；
-§ 为了获取非传统行为；
+<li>条款16：成对使用new和delete时要采取相同形式：<pre><code>○ 在new表达式中使用 [] ，必须在相应的delete表达式中也使用 [] ，如果在new表达式中不使用 [] ，一定不要在相应的delete表达式中使用 [] 。
 </code></pre></li>
-<li>条款51：编写new 和 delete 需要固守常规<br>○ Operator new 应该内含一个无穷循环，并在其中尝试分配内存，如果无法满足内存，就该调用new-handle；<br>○ Operator delete 应该在收到null时不做任何事；</li>
-<li>条款52：写了new 也要写delete<br>九、杂项</li>
-<li>条款53：不要轻易忽略编译器的警告</li>
-<li>条款54：让自己熟悉包括TR1在内的标准程序库<br>○ C++标准程序库的主要机能有STL、iostream、locales以及C99程序库；<br>○ TR1添加了智能指针、一般化函数指针、hash-based容器、正则表达式等；</li>
-<li>条款55：让自己熟悉boost（boost提供C++源程序库）</li>
+<li>条款17：以独立的指针将new对象置入智能指针<pre><code>○ 以独立语句将new对象存储于智能指针内，如果不这样做，一旦异常被抛出，又可能导致难以察觉的资源泄漏。举例：
+    int poriority();
+    void processWidget(std::tr1::shared_ptr&lt;Widget&gt; pw, int poriority);
+    //调用processWidget函数
+    processWidget（std::tr1::shared_ptr&lt;Widget&gt; (new Widget), poririty()); //不要用这种方式调用
+    Std::tr1::shared_ptr&lt;Widget&gt; pw(new Widget);  //放到单独语句处理，再用于调用
+    processWidget(pw, poririty()); 
+</code></pre></li>
 </ol>
-</li>
+<h2 id="四、设计与声明"><a href="#四、设计与声明" class="headerlink" title="四、设计与声明"></a>四、设计与声明</h2><ol start="18">
+<li>条款18：让接口容易被正确使用，不易被误用<pre><code>○ shared_ptr用一个比较好的性质是：它会自动使用它的”每个指针专属的删除器“，因而消除了一个潜在的客户错误，cross-DLL problem；
+○ 促进接口的正确使用办法：保持接口的一致性，以及内置类型的行为兼容；
+○ 阻止接口误用的方法：建立新类型，限制类型上的操作，束缚对象，消除客户的资源管理责任；
+</code></pre></li>
+<li>条款19：设计class犹如设计type</li>
+<li>条款20：宁以为pass-by-reference-to-const替换pass-by-value<pre><code>○ 当对象是内置类型和stl的迭代器和函数对象时，推荐使用pass-by-value；
+○ 当对象是用户自定义类型时，使用pass-byreference-to-const（指针传递）；
+    § 原因：对于用户自定义类型，其大小容易有所变化，而且以指针传递效率更高；
+○ 使用pass-by-value会引起耗的原因： 对象的copy构造函数会产出很多对象的副本；
+</code></pre></li>
+<li>条款21：当必须返回对象时，不要尝试返回reference（引用）：<pre><code>○ reference仅是个名字，代表某个既有对象，是某物的另一个名称；
+○ 绝不要返回pointer或reference指向一个local stack对象，或是返回reference指向一个heap-allocated对象，或返回pointer或reference指向一个local static对象而有可能同时需要多个这样的对象。
+</code></pre></li>
+<li>条款22：将成员变量声明为private<pre><code>○ 这样做为了保证封装性；
+○ protected并不比pucblic更具有封装性；
+</code></pre></li>
+<li>条款23：宁以non-member、non-friend函数替换member函数：（？？？）<pre><code>○ 推崇封装性的原因：使我们改变事物却只影响少部分客户；
+○ friends函数对private 成员的访问权力和member函数相同；
+○ 只因为封装性而让函数成为class的non-member，并不意味这它不可以是另一个class的member（所有函数不一定必须都放在一个class内）；
+○ 以non-member、non-friend函数替换member函数，这样做可以增加封装性，包裹弹性和技能扩充性；
+</code></pre></li>
+<li>条款24：若需要为某个函数的所有参数进行类型转换，建议采用non-member函数；<pre><code>○ 因为这样做允许编译器在每一个实参上执行隐式类型转换；
+○ member函数的反面是non-member函数，不是friend函数；
+</code></pre></li>
+</ol>
+<h2 id="五、实现"><a href="#五、实现" class="headerlink" title="五、实现"></a>五、实现</h2><ol start="25">
+<li>条款25：考虑写出一个不抛异常的swap函数<pre><code>○ 当std::swap对用户自定义类型的效率不高，提供一个swap成员函数，并确定这个函数不会抛出异常；
+○ 如果自己提供了一个member swap函数，也该提供一个non-member swap来调用前者；
+</code></pre></li>
+<li>条款26：尽可能延后变量定义式的出现。这样做可增加程序的清晰度并改善程序效率；</li>
+<li>条款27：尽力少做转型动作；<pre><code>○ 优良的c++代码很少使用转型
+○ 如果可以，尽力避免转型，试着发展无需转型的替代设计；
+○ 如果转型是必要的，试着将它隐藏再某个函数背后；这样，客户随后调用该函数；
+○ 使用新式转型，不要使用旧式转型；
+</code></pre></li>
+<li>条款28：避免返回handles（包括references、指针、迭代器）指向对象内部成分，这样做可以增加封装性。</li>
+<li>条款29：为“异常安全”努力是值得的<pre><code>○ 异常安全函数即使发生异常也不会泄漏资源或不允许任何数据结构败坏，有三种保证：基本型，强烈型，不抛异常型。
+○ 强烈保证往往能以copy-and-swap实现出来，但并非具备现实意义；
+○ 如何做才能让代码具备异常安全性：
+    § 首先是“以对象管理资源”(智能指针)，这样可以阻止资源泄漏；
+    § 然后挑选三个“异常安全保证”中的一个实现；
+    § 最后，将这些决定写成文档，便于用户使用和后续维护。
+</code></pre></li>
+<li>条款30：透彻了解inlining的里里外外<pre><code>○ 将大多数的inlining限制在小型、被频繁调用的函数身上；
+○ 不要只因为founction templates出现在头文件，就将它们声明为inline；
+○ inline意味着执行前，先将调用动作替换为被调用函数的本体；
+○ 大部分编译器拒绝将太过于复杂的函数inlining。
+</code></pre></li>
+<li>条款31：将文件间的编译依存关系降到最低<pre><code>○ 支持“编译依yi存最小化”的一般构想是“，相依于声明式，不要相依定义式，接口和实现分离；
+○ 程序的头文件应该都放的是声明式；
+</code></pre></li>
+</ol>
+<h2 id="六、继承与面向对象设计"><a href="#六、继承与面向对象设计" class="headerlink" title="六、继承与面向对象设计"></a>六、继承与面向对象设计</h2><ol start="32">
+<li>条款32：public继承意味着is-a，适用于base class身上的每一件事也适用于derived class。例如：学生student class 继承人类 person class，每个学生都是人，但不是人人都是学生；</li>
+<li>条款33：避免遮掩继承而来的名称：<pre><code>○ Derived classes内的名称会遮掩base classes内的名称（隐藏），局部同名变量会遮掩全局变量；
+○ 为了避免这样的问题：可以使用using声明式或转交函数；
+</code></pre></li>
+<li>条款34：区分接口继承和实现<pre><code>○ 接口继承和实现继承不同。在public继承之下，derived classes总是继承base classes的接口；
+○ Pure virtual 函数指具体指定接口继承；
+○ 非纯虚函数具体指定接口以及缺省实现；
+○ 非虚函数具体指定接口继承以及强制性实现继承；
+</code></pre></li>
+<li>条款35：考虑virtual函数意外的其他选择<pre><code>○ virtual函数的替代方案包括NVI手法以及Strategy设计模式的多种形式（NVI手法：令base内的一个public non-virtual函数调用private virtual函数，后者可被derived class 重新定义，这样做还可以为被调用的virtual函数进行上下管理）；
+</code></pre></li>
+<li>条款36：任何情况下都不该重新定义继承而来的non-virtual函数<pre><code>○ base内的析构函数应该是virtual；
+○ virtual函数是动态绑定，如果mf是个virtual函数，不论是通过pB或是pD调用mf。都是导致调用D::mf（class D : public class B）。
+</code></pre></li>
+<li>条款37：绝不重新定义继承而来的缺省参数值，因为virtual是动态绑定的，而缺省参数值却是静态绑定。</li>
+<li>条款38：通过复合塑模出 has-a 或 “根据某物实现出”:<pre><code>○ 复合式类型间的一种关系，当某种类型的对象内含其他种类的对象时，便是这种关系；
+○ 复合和 public 继承完全不同；
+○ 在应用域，复合意味着 has-a ，在实现域 复合意味着 ”根据某物实现出“；
+</code></pre></li>
+<li>条款39：明智而谨慎的使用 private 继承：<pre><code>○ 宁可复用既有代码，尽量少写新代码；
+○ private继承行为规则：
+    § 如果classes 之间的继承关系是private，编译器不会自动将一个 derived class对象转换为一个base class对象；
+    § 由 private base class 继承而来的所有成员，在derived class 中都将变成private属性，即使它们在base class 中原本是protected 或public属性；
+○ Private 意味着根据某物实现出，通常比复合的级别低。当derived class 需要访问protected base class 的成员 或需要重新定义继承而来的virtual函数时，才考虑private继承；
+</code></pre></li>
+</ol>
+<h2 id="七、模板与泛型编程"><a href="#七、模板与泛型编程" class="headerlink" title="七、模板与泛型编程"></a>七、模板与泛型编程</h2><ol start="40">
+<li>条款40：明智而谨慎的使用多继承：<pre><code>○ 多继承比单一继承复杂，它可能新的歧义；
+○ 虚拟继承会增加大小、速度、初始化复杂度等等成本；
+○ 多重继承由正当用途，比如：public继承某个接口类和private继承某个协助实现的class相结合时；
+○ 对虚拟继承的建议：
+    § 非必要不要使用 virtual bases，平常请使用non-virtual继承；
+    § 如果必须使用virtual base classes，尽可能避免在其中放置数据；
+</code></pre></li>
+<li>条款41：了解隐式接口编程和编译期多态<pre><code>○ Classes 和 templates 都支持接口和多态；
+○ Classes 的接口是显示的，多态则是通过virtual函数发生于运行期；
+○ template参数而言，接口是隐式的，多态发生于编译器；
+</code></pre></li>
+<li>条款42：了解typename的双重意义<pre><code>○ 声明template参数时，前缀关键字class和typename可互换；
+</code></pre></li>
+<li>条款43：学习处理模板化基类内的名称<pre><code>○ 可在derived class templates内通过 this 指针指向base class templates内的成员，或者由一个明确写出的“ base class 资格修饰符“完成；
+</code></pre></li>
+<li>条款44：将与参数无关的代码抽离templates<pre><code>○ template生成多个classs和多个函数，任何template代码都不该与某个造成膨胀的template参数产生互相依赖的关系；
+○ 因非类型模板参数造成的代码膨胀，可以以函数参数或成员变量替换替换template参数；
+</code></pre></li>
+<li>条款45：运用成员函数模板接受作用兼容类型<pre><code>○ 建议使用member function template（成员函数模板）生成“可接受所有兼容类型”的函数；
+○ 如果声明member templates 用于“泛化copy构造”或“泛化assignment操作”的同时，还需要声明正常的copy构造函数和copy assignment操作符；
+</code></pre></li>
+<li>条款46：需要类型转换时为模板定义非成员函数<pre><code>○ 在编写class template时，当提供“与此template相关”的函数支持“所有参数的隐士转换类型”时，定义这些函数为 class template内部的 friend 函数；
+</code></pre></li>
+<li>条款47：请使用 traits classes表现类型信息；<pre><code>○ STL提供5种迭代器：input、output、forward、Bidirectional、random access
+○ traits ：特性萃取技术，提取被传进对象的返回类型，让同一个接口实现对应的功能；
+○ traits使得类型相关信息在编译器可以使用，以temmplate和templates特化完成实现；
+</code></pre></li>
+<li>条款48：认识template元编程：<pre><code>○ Template metaprogramming（TMP,模板元编程）可将工作由运行期移往编译器；
+</code></pre></li>
+</ol>
+<h2 id="八、定制new和delete"><a href="#八、定制new和delete" class="headerlink" title="八、定制new和delete"></a>八、定制new和delete</h2><ol start="49">
+<li>条款49：了解new-handle的行为<pre><code>○ set-new-handle允许客户指定一个函数，在内存分配无法满足时被调用；
+</code></pre></li>
+<li>条款50：了解new和delete合理替换时机<pre><code>○ 以下理由需要自定义new和delete：
+    § 为了检测运用错误；
+    § 为了收集动态分配内存之使用统计信息；
+    § 为了增加分配和归还的时速；
+    § 为了降低缺省内存管理器带来额外开销；
+    § 为了弥补缺省分配器中的非最佳齐位；
+    § 为了获取非传统行为；
+</code></pre></li>
+<li>条款51：编写new 和 delete 需要固守常规<pre><code>○ Operator new 应该内含一个无穷循环，并在其中尝试分配内存，如果无法满足内存，就该调用new-handle；
+○ Operator delete 应该在收到null时不做任何事；
+</code></pre></li>
+<li>条款52：写了new 也要写delete</li>
+</ol>
+<h2 id="九、杂项"><a href="#九、杂项" class="headerlink" title="九、杂项"></a>九、杂项</h2><ol start="53">
+<li>条款53：不要轻易忽略编译器的警告</li>
+<li>条款54：让自己熟悉包括TR1在内的标准程序库<pre><code>○ C++标准程序库的主要机能有STL、iostream、locales以及C99程序库；
+○ TR1添加了智能指针、一般化函数指针、hash-based容器、正则表达式等；
+</code></pre></li>
+<li>条款55：让自己熟悉boost（boost提供C++源程序库）</li>
 </ol>
 
       
@@ -462,7 +522,7 @@ processWidget(pw, poririty());
         <p><span>本文标题:</span><a href="/2019/10/08/《Effective-C-》-阅读笔记/">《Effective C++》-阅读笔记</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Zhijuan</a></p>
         <p><span>发布时间:</span>2019-10-08, 11:32:53</p>
-        <p><span>最后更新:</span>2019-10-08, 14:10:28</p>
+        <p><span>最后更新:</span>2019-10-08, 14:19:00</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/10/08/《Effective-C-》-阅读笔记/" title="《Effective C++》-阅读笔记">https://chengchengzi.github.io/2019/10/08/《Effective-C-》-阅读笔记/</a>
             <span class="copy-path" data-clipboard-text="原文: https://chengchengzi.github.io/2019/10/08/《Effective-C-》-阅读笔记/　　作者: Zhijuan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -492,7 +552,7 @@ processWidget(pw, poririty());
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#阅读学习《Effective-C-》"><span class="toc-number">1.</span> <span class="toc-text">阅读学习《Effective C++》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、让自己习惯C"><span class="toc-number">1.1.</span> <span class="toc-text">一、让自己习惯C++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、构造-析构-赋值运算"><span class="toc-number">1.2.</span> <span class="toc-text">二、构造/析构/赋值运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、资源管理"><span class="toc-number">1.3.</span> <span class="toc-text">三、资源管理</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#阅读学习《Effective-C-》"><span class="toc-number">1.</span> <span class="toc-text">阅读学习《Effective C++》</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、让自己习惯C"><span class="toc-number">1.1.</span> <span class="toc-text">一、让自己习惯C++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、构造-析构-赋值运算"><span class="toc-number">1.2.</span> <span class="toc-text">二、构造/析构/赋值运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、资源管理"><span class="toc-number">1.3.</span> <span class="toc-text">三、资源管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、设计与声明"><span class="toc-number">1.4.</span> <span class="toc-text">四、设计与声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、实现"><span class="toc-number">1.5.</span> <span class="toc-text">五、实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、继承与面向对象设计"><span class="toc-number">1.6.</span> <span class="toc-text">六、继承与面向对象设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、模板与泛型编程"><span class="toc-number">1.7.</span> <span class="toc-text">七、模板与泛型编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、定制new和delete"><span class="toc-number">1.8.</span> <span class="toc-text">八、定制new和delete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#九、杂项"><span class="toc-number">1.9.</span> <span class="toc-text">九、杂项</span></a></li></ol></li></ol>
         
     </div>
     <style>
