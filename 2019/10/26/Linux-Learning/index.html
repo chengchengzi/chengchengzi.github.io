@@ -15,14 +15,17 @@
 
 
 
+<meta name="description" content="《鸟哥的Linux私房菜》阅读笔记，粗略看了前4部分">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux-Learning">
 <meta property="og:url" content="https://chengchengzi.github.io/2019/10/26/Linux-Learning/index.html">
 <meta property="og:site_name" content="Zhijuan&#39;s Blog">
+<meta property="og:description" content="《鸟哥的Linux私房菜》阅读笔记，粗略看了前4部分">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-26T07:59:53.549Z">
+<meta property="og:updated_time" content="2019-10-26T08:01:56.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux-Learning">
+<meta name="twitter:description" content="《鸟哥的Linux私房菜》阅读笔记，粗略看了前4部分">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -304,18 +307,36 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><excerpt in index> </excerpt></p>
+        <p>《鸟哥的Linux私房菜》阅读笔记，粗略看了前4部分</p>
+<p><excerpt in index> </excerpt></p>
 <ul>
 <li><a id="more"></a>
 <the rest of contents>
 
+
 </the></li>
 </ul>
-<p>#《鸟哥的Linux私房菜》阅读笔记，粗略看了前4部分</p>
-<p>##第五章<br>    命令：<br>        ○ 命令的下达：命令 选项 参数1 参数2；<br>        ○ 命令太长时，可以用反斜杠 \ 来跳脱enter符号；<br>        ○ Linux中，英文大小写符号不一样；<br>        ○ Tab： 命令补全、文件补齐<br>        ○ Ctrl + c : 中断目前程序<br>        ○ Ctrl +  d：键盘结束输入<br>        ○ Sync：将数据同步写入到硬盘中<br>        ○ shutdown：关机命令<br>            § Shutdown -h +10 ：10分钟后关机<br>            § Shutdown -r now ：立刻重启<br>            § reboot，halt，poweroff：重新启动，关机<br>        ○ man 手册，数字代表内容<br>        ！<a href="代表内容.png">代表内容</a></p>
-<p>##第二部分 linux文件、目录与磁盘格式</p>
-<p>##第六章<br>        ○ ls -al ：列出当前目录下文件的所有详细属性<br>        ○ chgrp： 改变文件所属群组<br>        ○ chown：改变文件拥有者<br>        ○ chmod：改变文件的权限（-rwxrwxrwx）10个位，后9位控制（拥有者、群组、其他人）权限，9位数相加=（-[111][111][111]） = 777<br>        ○ cp：复制文件，会同时复制执行者的属性与权限<br>        ○ ./ ：代表当前目录，../：代表上一次目录（根目录的上一层与根目录自己是同一个目录）</p>
-<h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><pre><code>○ cd：打开某一个目录
+<h2 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h2><pre><code>命令：
+    ○ 命令的下达：命令 选项 参数1 参数2；
+    ○ 命令太长时，可以用反斜杠 \ 来跳脱enter符号；
+    ○ Linux中，英文大小写符号不一样；
+    ○ Tab： 命令补全、文件补齐
+    ○ Ctrl + c : 中断目前程序
+    ○ Ctrl +  d：键盘结束输入
+    ○ Sync：将数据同步写入到硬盘中
+    ○ shutdown：关机命令
+        § Shutdown -h +10 ：10分钟后关机
+        § Shutdown -r now ：立刻重启
+        § reboot，halt，poweroff：重新启动，关机
+    ○ man 手册，数字代表内容
+    ！[代表内容](代表内容.png)
+</code></pre><h2 id="第二部分-linux文件、目录与磁盘格式"><a href="#第二部分-linux文件、目录与磁盘格式" class="headerlink" title="第二部分 linux文件、目录与磁盘格式"></a>第二部分 linux文件、目录与磁盘格式</h2><h2 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h2><pre><code>○ ls -al ：列出当前目录下文件的所有详细属性
+○ chgrp： 改变文件所属群组
+○ chown：改变文件拥有者
+○ chmod：改变文件的权限（-rwxrwxrwx）10个位，后9位控制（拥有者、群组、其他人）权限，9位数相加=（-[111][111][111]） = 777
+○ cp：复制文件，会同时复制执行者的属性与权限
+○ ./ ：代表当前目录，../：代表上一次目录（根目录的上一层与根目录自己是同一个目录）
+</code></pre><h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><pre><code>○ cd：打开某一个目录
 ○ pwd：显示当前目录
 ○ mkdir：创建新目录
 ○ rmdir：删除一个空的目录
@@ -423,7 +444,7 @@
         <p><span>本文标题:</span><a href="/2019/10/26/Linux-Learning/">Linux-Learning</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Zhijuan</a></p>
         <p><span>发布时间:</span>2019-10-26, 15:53:03</p>
-        <p><span>最后更新:</span>2019-10-26, 15:59:53</p>
+        <p><span>最后更新:</span>2019-10-26, 16:01:56</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/10/26/Linux-Learning/" title="Linux-Learning">https://chengchengzi.github.io/2019/10/26/Linux-Learning/</a>
             <span class="copy-path" data-clipboard-text="原文: https://chengchengzi.github.io/2019/10/26/Linux-Learning/　　作者: Zhijuan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -453,7 +474,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第七章"><span class="toc-number">1.</span> <span class="toc-text">第七章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第八章-磁盘与文件系统管理"><span class="toc-number">2.</span> <span class="toc-text">第八章 磁盘与文件系统管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第九章-文件与文件系统的压缩与打包"><span class="toc-number">3.</span> <span class="toc-text">第九章 文件与文件系统的压缩与打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十章-Vim编辑器"><span class="toc-number">4.</span> <span class="toc-text">第十章 Vim编辑器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十一章-认识和学习BASH"><span class="toc-number">5.</span> <span class="toc-text">第十一章 认识和学习BASH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十三章-学习shell-sciptor-脚本（包含很多shell命令）"><span class="toc-number">6.</span> <span class="toc-text">第十三章 学习shell sciptor = 脚本（包含很多shell命令）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十四章-Linux的使用者管理"><span class="toc-number">7.</span> <span class="toc-text">第十四章 Linux的使用者管理</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第五章"><span class="toc-number">1.</span> <span class="toc-text">第五章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二部分-linux文件、目录与磁盘格式"><span class="toc-number">2.</span> <span class="toc-text">第二部分 linux文件、目录与磁盘格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章"><span class="toc-number">3.</span> <span class="toc-text">第六章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第七章"><span class="toc-number">4.</span> <span class="toc-text">第七章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第八章-磁盘与文件系统管理"><span class="toc-number">5.</span> <span class="toc-text">第八章 磁盘与文件系统管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第九章-文件与文件系统的压缩与打包"><span class="toc-number">6.</span> <span class="toc-text">第九章 文件与文件系统的压缩与打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十章-Vim编辑器"><span class="toc-number">7.</span> <span class="toc-text">第十章 Vim编辑器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十一章-认识和学习BASH"><span class="toc-number">8.</span> <span class="toc-text">第十一章 认识和学习BASH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十三章-学习shell-sciptor-脚本（包含很多shell命令）"><span class="toc-number">9.</span> <span class="toc-text">第十三章 学习shell sciptor = 脚本（包含很多shell命令）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第十四章-Linux的使用者管理"><span class="toc-number">10.</span> <span class="toc-text">第十四章 Linux的使用者管理</span></a></li></ol>
         
     </div>
     <style>
