@@ -303,11 +303,131 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>《鸟哥的Linux私房菜》阅读笔记，粗略看了前4部分</p>
-<p><excerpt in index> </excerpt></p>
+        <p><excerpt in index> </excerpt></p>
 <ul>
-<li></li></ul>
-          
+<li>《鸟哥的Linux私房菜》阅读笔记，粗略看了前4部分<the rest of contents>
+
+
+</the></li>
+</ul>
+<h2 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h2><pre><code>命令：
+    ○ 命令的下达：命令 选项 参数1 参数2；
+    ○ 命令太长时，可以用反斜杠 \ 来跳脱enter符号；
+    ○ Linux中，英文大小写符号不一样；
+    ○ Tab： 命令补全、文件补齐
+    ○ Ctrl + c : 中断目前程序
+    ○ Ctrl +  d：键盘结束输入
+    ○ Sync：将数据同步写入到硬盘中
+    ○ shutdown：关机命令
+        § Shutdown -h +10 ：10分钟后关机
+        § Shutdown -r now ：立刻重启
+        § reboot，halt，poweroff：重新启动，关机
+    ○ man 手册，数字代表内容
+    ！[代表内容](代表内容.png)
+</code></pre><h2 id="第二部分-linux文件、目录与磁盘格式"><a href="#第二部分-linux文件、目录与磁盘格式" class="headerlink" title="第二部分 linux文件、目录与磁盘格式"></a>第二部分 linux文件、目录与磁盘格式</h2><h2 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h2><pre><code>○ ls -al ：列出当前目录下文件的所有详细属性
+○ chgrp： 改变文件所属群组
+○ chown：改变文件拥有者
+○ chmod：改变文件的权限（-rwxrwxrwx）10个位，后9位控制（拥有者、群组、其他人）权限，9位数相加=（-[111][111][111]） = 777
+○ cp：复制文件，会同时复制执行者的属性与权限
+○ ./ ：代表当前目录，../：代表上一次目录（根目录的上一层与根目录自己是同一个目录）
+</code></pre><h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><pre><code>○ cd：打开某一个目录
+○ pwd：显示当前目录
+○ mkdir：创建新目录
+○ rmdir：删除一个空的目录
+○ cp：复制文件或目录
+○ rm：删除文件或目录
+○ mv：移动文件
+○ rename：更改文件名
+○ cat：将文档内容由第一行到最后一行连续显示在屏幕上
+○ tac：将文档恩人由最后一行到第一行连续显示在屏幕上
+○ nl：将输出的文件内容自动加上行号内容
+○ more/less：一页一页翻页显示
+○ head：显示文件的前几行
+○ tail：显示文件后几行
+○ which：寻找运行档
+○ whereis：寻找特定文件
+○ locate：寻找文件
+○ find：寻找文件（推荐 whereis 和 locate，实在找不到在用find）
+</code></pre><h2 id="第八章-磁盘与文件系统管理"><a href="#第八章-磁盘与文件系统管理" class="headerlink" title="第八章 磁盘与文件系统管理"></a>第八章 磁盘与文件系统管理</h2><pre><code>• df：列出文件系统的整体磁盘使用量
+• ln：链接文件， ln [-sf] 来源文件 目标文件 
+    ○ -s：如果不加任何参数，就是hard link，-s则为符号链接
+    ○ -f：如果目标文件存在，就将目标文件移除后再创建
+• fdisk [-l] 装置名称：磁盘分区
+• mkfs [-t 文件系统格式] 装置文件名：磁盘格式化
+• mount：将文件系统挂载到linux系统上（挂载点就是目录）
+• umount：将挂载的文件系统卸除
+• 磁盘的使用必需经过：分割、格式化、挂载
+• swap内存置换空间：在应付无论内存不足的情况下所造成的内存延伸记录的功能
+• linux的正统文件系统为 Ext2（索引式文件系统），包含superblock、inode、block
+</code></pre><h2 id="第九章-文件与文件系统的压缩与打包"><a href="#第九章-文件与文件系统的压缩与打包" class="headerlink" title="第九章 文件与文件系统的压缩与打包"></a>第九章 文件与文件系统的压缩与打包</h2><pre><code>• 1byte = 8 bit
+• gzip [-cdtv#] 文件名 ： 压缩文件
+    ○ -c：将压缩的数据输出到屏幕上；
+    ○ -d：解压缩参数
+    ○ -t：检验一个压缩当的一致性
+    ○ -v：显示原文件/压缩文件的压缩比等资讯
+    ○ -#：压缩等级，-1最快，但是压缩比最差，-9最慢，但压缩比最好；
+• zcat  文件名.gz：读取纯文字档被压缩后的压缩档
+• bzip2 [-cdkzv#] 文件名：压缩文件
+• bzcat：读取
+• tar [-j|-z] [cv] [-f 目标文件名] 源文件名 ：打包与压缩
+•  tar [-j|-z] [tv] [-f 目标文件名]             ：察看档名
+•  tar [-j|-z] [xv] [-f 目标文件名] [-C 源文件名]   ：解压缩
+    ○ -j：打包为 *.tar.gz2
+    ○ -z：打包为 *.tar.gz
+• 管线命令： | ： tar  -cvf out /ect | tar -xvf out ：整个目录一边打包一边在当前目录下解开
+• 备份：
+    ○ dump [-Suvj] [-level] [-f 备份目标文件名] 待备份数据
+    ○  dump -W
+        § 选项与参数：
+        § -S    ：仅列出后面的待备份数据需要多少磁碟空间才能够备份完毕；
+        § -u    ：将这次 dump 的时间记录到 /etc/dumpdates 文件中；
+        § -v    ：将 dump 的文件过程显示出来；
+        § -j    ：加入 bzip2 的支持！将数据进行压缩，默认 bzip2 压缩等级为 2
+        § -level：就是我们谈到的等级，从 -0 ~ -9 共十个等级；
+        § -f    ：有点类似 tar 啦！后面接产生的文件，亦可接例如 /dev/st0 装置档名等
+        § -W    ：列出在 /etc/fstab 里面的具有 dump 配置的 partition 是否有备份过？
+• 复原：
+    ○ restore -t [-f dumpfile] [-h]    ：用来察看 dump 档
+    ○  restore -C [-f dumpfile] [-D 挂载点] ：比较dump与实际文件
+    ○  restore -i [-f dumpfile]   ：进入互动模式
+    ○ restore -r [-f dumpfile]    ：还原整个文件系统
+    选项与参数：
+        § 相关的各种模式，各种模式无法混用喔！例如不可以写 -tC 啦！
+        § -t  ：此模式用在察看 dump 起来的备份档中含有什么重要数据！类似 tar -t 功能；
+        § -C  ：此模式可以将 dump 内的数据拿出来跟实际的文件系统做比较，
+          最终会列出『在 dump 文件内有记录的，且目前文件系统不一样』的文件；
+        § -i  ：进入互动模式，可以仅还原部分文件，用在 dump 目录时的还原！
+        § -r  ：将整个 filesystem 还原的一种模式，用在还原针对文件系统的 dump 备份；
+    其他较常用到的选项功能：
+        § -h  ：察看完整备份数据中的 inode 与文件系统 label 等资讯
+        § -f  ：后面就接你要处理的那个 dump 文件罗！
+        § -D  ：与 -C 进行搭配，可以查出后面接的挂载点与 dump 内有不同的文件！
+</code></pre><h2 id="第十章-Vim编辑器"><a href="#第十章-Vim编辑器" class="headerlink" title="第十章 Vim编辑器"></a>第十章 Vim编辑器</h2><pre><code>• Vim有三种模式：
+    ○ 命令模式：移动删除复制；
+    ○ 编辑模式：编辑；
+    ○ 底行模式：退出保存，显示行号；
+</code></pre><h2 id="第十一章-认识和学习BASH"><a href="#第十一章-认识和学习BASH" class="headerlink" title="第十一章 认识和学习BASH"></a>第十一章 认识和学习BASH</h2><pre><code>• echo：变量的读取：echo $variable
+• env：查阅环境变量
+• set：查阅所有变量（环境变量和自定义变量）
+• export：将变量变成环境变量
+• uset：取消变量的配置
+• 管线命令 | ：
+    ○ cut：以行为单位将某一段信息的某一段‘切’出来；
+    ○ grep：分析一行，若当中有需要的，将整行拿出来；
+    ○ sort：排序
+    ○ uniq：去重，仅显示非重复数据
+    ○ wc：统计 行数、字数、字符数
+    ○ split：根据文件大小或行数，将大文件分割成小文件
+</code></pre><h2 id="第十三章-学习shell-sciptor-脚本（包含很多shell命令）"><a href="#第十三章-学习shell-sciptor-脚本（包含很多shell命令）" class="headerlink" title="第十三章 学习shell sciptor = 脚本（包含很多shell命令）"></a>第十三章 学习shell sciptor = 脚本（包含很多shell命令）</h2><pre><code>• sh [-nvx] script.sh
+    ○ -n：不运行script，仅查询语法问题；
+    ○ -v：在运行script之前，将其内容输出到屏幕上；
+    ○ -x：将使用到的script运行过程全部列出来。
+</code></pre><h2 id="第十四章-Linux的使用者管理"><a href="#第十四章-Linux的使用者管理" class="headerlink" title="第十四章 Linux的使用者管理"></a>第十四章 Linux的使用者管理</h2><pre><code>• grep ‘zzj’/etc/passwd ： 查看有没有名为 zzj 的用户
+• pwck：检查当前账号 /etc/passwd 在配置文件内的信息
+• useradd，usermod，userdel : 创建用户，更改参数，删除用户
+• groupadd，groupmod，groupdel ：群组创建、修改、删除
+• su/sudo：身份切换
+</code></pre>
       
     </div>
     
@@ -316,10 +436,6 @@
       
 
       
-      
-        <p class="article-more-link">
-          <a href="/2019/10/26/Linux-Learning/#more">阅读全文 >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
