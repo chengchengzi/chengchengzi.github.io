@@ -24,6 +24,8 @@
 <meta property="og:description" content="&amp;lt;&amp;lt;大话设计模式&amp;gt;&amp;gt; 作者：程杰 目标：设计出易维护、易扩展、易复用、灵活性好的程序。 Design pattern：设计模式">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/UML类图图示样例.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/简单工厂模式.png">
+<meta property="og:image" content="https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/策略模式.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/依赖倒置原则.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/装饰模式.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/代理模式.png">
@@ -45,7 +47,7 @@
 <meta property="og:image" content="https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/享元模式.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/解释器模式.png">
 <meta property="og:image" content="https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/访问者模式.png">
-<meta property="og:updated_time" content="2019-11-10T09:19:59.255Z">
+<meta property="og:updated_time" content="2019-11-10T09:22:22.062Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-学习笔记">
 <meta name="twitter:description" content="&amp;lt;&amp;lt;大话设计模式&amp;gt;&amp;gt; 作者：程杰 目标：设计出易维护、易扩展、易复用、灵活性好的程序。 Design pattern：设计模式">
@@ -354,13 +356,11 @@
 <li>1.UML类图图示样例<br>  <img src="/2019/11/10/设计模式-学习笔记/UML类图图示样例.png" alt="UML类图样例示例"><br>  (1）类图：’+‘ 表示public，’-‘ 表示private，’#‘表示protected；<br>  (2）接口有两种表示方法，直接写明《interface》和棒棒糖表示法；<br>  (3）关联关系（Association）：当一个类‘知道’另一个类时，用关联关系，用实线箭头表示；<br>  (2）聚合关系（Aggregation）：聚合表示一种弱的‘拥有’关系，体现的是A对象可以包含B对象，但B对象不是A对象的一部分，用空心的菱形+实线箭头表示。比如：雁群包含大雁，由多只大雁组成，而大雁不是雁群不可分的一部分，大雁可以离开雁群；<br>  (3）合成（组合）关系（Composition）：合成是一种强的拥有关系，体现了严格的部分和整体的关系，部分和整体的生命周期一样，用实心的菱形+实线箭头表示。比如鸟和翅膀的关系；<br>  (4）依赖关系（Dependency）：一个类依赖于于另一个类，用虚线箭头表示。比如：动物存活需要氧气、水和食物等，即动物存活依赖于氧气和水；</li>
 <li>2、简单工厂模式<br>  (1）包含三个角色：工厂类，抽象父类，具体子类<br>  (2）优点：实现了松耦合，解决了对象的创建问题<br>  (3）当需要新增功能，只需要改动两处，且不会对原来的已经实现功能进行改动：<pre><code>• 新增具体子类功能
 • 工厂类增加switch分支
-</code></pre>  (4)类图<pre><code>![简单工厂模式](简单工厂模式.png)
-</code></pre></li>
+</code></pre>  (4)类图<br><img src="/2019/11/10/设计模式-学习笔记/简单工厂模式.png" alt="简单工厂模式"></li>
 </ul>
 <h2 id="第二章-策略模式（商场促销）"><a href="#第二章-策略模式（商场促销）" class="headerlink" title="第二章 策略模式（商场促销）"></a>第二章 策略模式（商场促销）</h2><ul>
 <li><ol>
-<li>摘录<br>   • 面向对象编程，并不是类越多越好，类的划分是为了封装，但分类的基础是抽象，具有相同属性和功能的对象的抽象集合才是类；<br>   • 策略模式适用算法经常变动的情况；<br>   • 类图：<pre><code>![策略模式](策略模式.png)
-</code></pre>   • 策略模式将让算法或策略独立于使用策略的用户；<br>   • 策略模式与工厂对比：<pre><code>○ 从类图可以看出，二者在模式结构上很相似
+<li>摘录<br>   • 面向对象编程，并不是类越多越好，类的划分是为了封装，但分类的基础是抽象，具有相同属性和功能的对象的抽象集合才是类；<br>   • 策略模式适用算法经常变动的情况；<br>   • 类图：<br><img src="/2019/11/10/设计模式-学习笔记/策略模式.png" alt="策略模式"><br>   • 策略模式将让算法或策略独立于使用策略的用户；<br>   • 策略模式与工厂对比：<pre><code>○ 从类图可以看出，二者在模式结构上很相似
 ○ 用途不一样：工厂的主要作用在于创建对象，策略的主要作用让一个对象在多种行为中选择一种行为 
   关注点不一样：工厂关注对象的创建，策略关注行为的封装和策略的切换扩展；
 </code></pre></li>
@@ -379,7 +379,7 @@
     ○ 高层抽象不应该依赖底层模块，两个都应该依赖抽象；
     ○ 抽象不应该依赖于细节，细节应该依赖于抽象。
 • 里氏代换原则：子类必须能够替换掉它们的父类。在继承中，子类继承了父类，所以子类可以以父类的身份出现。同时，子类也能够在父类的基础上增加新的行为。
-</code></pre><p>子类可替换，这就使得父类的模块在无需修改的情况下就可以扩展。<br>    <img src="/2019/11/10/设计模式-学习笔记/依赖倒置原则.png" alt="依赖倒置原则"></p>
+</code></pre><p>子类可替换，这就使得父类的模块在无需修改的情况下就可以扩展。<br><img src="/2019/11/10/设计模式-学习笔记/依赖倒置原则.png" alt="依赖倒置原则"></p>
 <h2 id="第六章-装饰模式（穿衣约会）"><a href="#第六章-装饰模式（穿衣约会）" class="headerlink" title="第六章 装饰模式（穿衣约会）"></a>第六章 装饰模式（穿衣约会）</h2><pre><code>• 定义：装饰模式动态扩展类的功能，是为已有功能动态地添加更多功能地一种方式
 • 优点：
     ○ 将类中的装饰功能从类中去除，简化原有的类，装饰类和被装饰类可以独立发展，不会相互耦合；
@@ -601,7 +601,7 @@
         <p><span>本文标题:</span><a href="/2019/11/10/设计模式-学习笔记/">设计模式-学习笔记</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Zhijuan</a></p>
         <p><span>发布时间:</span>2019-11-10, 16:35:40</p>
-        <p><span>最后更新:</span>2019-11-10, 17:19:59</p>
+        <p><span>最后更新:</span>2019-11-10, 17:22:22</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/11/10/设计模式-学习笔记/" title="设计模式-学习笔记">https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/</a>
             <span class="copy-path" data-clipboard-text="原文: https://chengchengzi.github.io/2019/11/10/设计模式-学习笔记/　　作者: Zhijuan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
