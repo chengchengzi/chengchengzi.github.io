@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Zhijuan">
+
+
+
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM-学习笔记">
+<meta property="og:url" content="https://chengchengzi.github.io/2020/04/03/JVM-学习笔记/index.html">
+<meta property="og:site_name" content="Zhijuan&#39;s Blog">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://chengchengzi.github.io/2020/04/03/JVM-学习笔记/Java工作内存.png">
+<meta property="og:updated_time" content="2020-04-03T15:46:48.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM-学习笔记">
+<meta name="twitter:image" content="https://chengchengzi.github.io/2020/04/03/JVM-学习笔记/Java工作内存.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Zhijuan&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JVM-学习笔记 | Zhijuan&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/orange.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Zhijuan</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">醉心于代码的世界</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">文章</a></li>
+                        
+                            <li><a href="/tags/">分类</a></li>
+                        
+                            <li><a href="/demos/">作品</a></li>
+                        
+                            <li><a href="/about/">ME</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=zq_goKelr727jr_-4K2how" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/chengchengzi" title="GitHub"></a>
+                            
+                                <a class="fa QQ" href="tencent://message/?menu=yes&uin=1352715945&websitename=im.qq.com" title="QQ"></a>
+                            
+                                <a class="fa 微信" href="/15177327471" title="微信"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IO输入输出/">IO输入输出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/">STL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/">design pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原创/">原创</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开篇/">开篇</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/记录/">记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/chengchengzi">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://chengchengzi.github.io/">chengchengzi</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">不 忘 初 心, 方 得 始 终。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Zhijuan</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/orange.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Zhijuan</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">醉心于代码的世界</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">文章</a></li>
+                
+                    <li><a href="/tags/">分类</a></li>
+                
+                    <li><a href="/demos/">作品</a></li>
+                
+                    <li><a href="/about/">ME</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=zq_goKelr727jr_-4K2how" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/chengchengzi" title="GitHub"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="tencent://message/?menu=yes&uin=1352715945&websitename=im.qq.com" title="QQ"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/15177327471" title="微信"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-JVM-学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/04/03/JVM-学习笔记/" class="article-date">
+      <time datetime="2020-04-03T15:34:40.000Z" itemprop="datePublished">2020-04-03</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JVM-学习笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/coding/">coding</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><excerpt in index> </excerpt></p>
+<ul>
+<li><a id="more"></a>
+<the rest of contents>
+
+</the></li>
+</ul>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><pre><code>《深入学习Java虚拟机》 阅读笔记
+</code></pre><h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="1-JDK、JRE、JVM的关系"><a href="#1-JDK、JRE、JVM的关系" class="headerlink" title="1. JDK、JRE、JVM的关系"></a>1. JDK、JRE、JVM的关系</h2><ul>
+<li>JVM：Java虚拟机：运行Java程序</li>
+<li>JRE：支持Java程序运行的标准环境 = JDK + 语言和工具基础库+其他基础库+继承库；</li>
+<li>JDK：Java 开发工具包（JRE+用户界面工具+程序部署发布）</li>
+</ul>
+<h1 id="第二章-Java内存区域与内存溢出异常"><a href="#第二章-Java内存区域与内存溢出异常" class="headerlink" title="第二章 Java内存区域与内存溢出异常"></a>第二章 Java内存区域与内存溢出异常</h1><h2 id="1-Java自动内存管理机制不易出现内存泄漏和内存溢出问题；"><a href="#1-Java自动内存管理机制不易出现内存泄漏和内存溢出问题；" class="headerlink" title="1. Java自动内存管理机制不易出现内存泄漏和内存溢出问题；"></a>1. Java自动内存管理机制不易出现内存泄漏和内存溢出问题；</h2><h2 id="2-Java虚拟机在执行Java程序的过程中，会把它所管理的内存划分为若干区域，Java运行时数据区域包括："><a href="#2-Java虚拟机在执行Java程序的过程中，会把它所管理的内存划分为若干区域，Java运行时数据区域包括：" class="headerlink" title="2. Java虚拟机在执行Java程序的过程中，会把它所管理的内存划分为若干区域，Java运行时数据区域包括："></a>2. Java虚拟机在执行Java程序的过程中，会把它所管理的内存划分为若干区域，Java运行时数据区域包括：</h2><pre><code>○ 程序计数器：当前线程所执行的字节码的行号指示器，字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复都要依赖这个计数器；（线程私有）
+○ Java虚拟机栈：为虚拟机执行Java方法服务，每个方法在执行时都会创建一个栈帧，用于存储局部变量表、操作数栈，动态链接、方法出口等信息；（线程私有）（局部变量表存放基本数据类型和对象引用类型）
+○ 本地方法栈：（线程私有）为虚拟机使用到的本地方法服务；
+○ Java堆：线程共享，存放对象实例，是垃圾收集器的主要管理区域；
+○ 方法区：线程共享，用于存储已被虚拟机加载的类信息、常量、静态变量；
+！[](运行时数据区.png)
+</code></pre><h2 id="3-对象在内存中存储的布局分为：对象头、实例数据、对齐填充："><a href="#3-对象在内存中存储的布局分为：对象头、实例数据、对齐填充：" class="headerlink" title="3. 对象在内存中存储的布局分为：对象头、实例数据、对齐填充："></a>3. 对象在内存中存储的布局分为：对象头、实例数据、对齐填充：</h2><pre><code>• 对象头：包括：
+    ○ 存储自身的运行数据：哈希码、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、时间戳等；
+    ○ 类型指针，通过这个指针来确定对象是哪个类的实例；
+• 实例数据：程序代码中所定义的各种类型的字段内容；
+• 对齐填充：（8字节整数倍）当对象实例数据部分没有对齐时，需要通过对齐填充来补全；
+</code></pre><h1 id="第三章-垃圾收集器与内存再分配策略"><a href="#第三章-垃圾收集器与内存再分配策略" class="headerlink" title="第三章 垃圾收集器与内存再分配策略"></a>第三章 垃圾收集器与内存再分配策略</h1><h2 id="1-需要回收哪些部分？"><a href="#1-需要回收哪些部分？" class="headerlink" title="1. 需要回收哪些部分？"></a>1. 需要回收哪些部分？</h2><pre><code>Java堆和方法区，因为程序计数器、虚拟机栈、本地方法栈随线程而生、随线程而灭，这三个区域的内存分配和回收都具备确定性，而Java堆和方法区都是动态的。
+</code></pre><h2 id="2-如何判断对象是否存活？"><a href="#2-如何判断对象是否存活？" class="headerlink" title="2. 如何判断对象是否存活？"></a>2. 如何判断对象是否存活？</h2><pre><code>两个方法：
+• 引用计数法：（虚拟机不采用）给对象添加一个引用计数器，每当一个地方引用它时，计数器值就+1；当引用失效时，计数器就-1；任何时刻技术为0的对象就是不可能再被引用的。但是存在问题：互相引用的对象，计数器都为不0，无法被访问和回收；
+• 可达性分析算法：（采用）通过一系列称为“GC Roots”的对象作为起始点，从这些结点向下搜索，所走过的路称为引用链，当一个对象到GC Roots没有任何引用链时，则此对象是不可用的；
+    ○ 可作为 GC Roots的对象：
+        § 虚拟机栈中引用的对象；
+        § 本机方法栈中JNI引用的对象；
+        § 方法区中常量引用的对象；
+        § 方法区静态属性引用的对象；
+    ○ 引用分为：强引用、软引用、弱引用、虚引用；
+</code></pre><h2 id="3-垃圾收集算法："><a href="#3-垃圾收集算法：" class="headerlink" title="3. 垃圾收集算法："></a>3. 垃圾收集算法：</h2><pre><code>• 标记-清除算法：首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的算法；（存在效率问题和内存碎片问题）
+• 复制算法：将内存容量划分为大小相等的两块，每次只使用其中的一块，当这一块的内存用完了，就将还存活的对象复制到另外一半上面，然后再把已使用过的内存空间一次清理掉；（存在效率问题，不存在内存碎片问题）
+• 标记-整理算法：首先标记出所有需要回收的对象，然后把所有存活的对象都向一端移动，之后直接清理端边界以外的内存；
+• 分代收集算法：根据对象生活周期的不同将内存划分为几块，一般是把堆分为新生代和老生代，新生代选用复制算法，老生代选用标记-清除或标记-整理算法（因为新生代中，每次收集都有大批对象死去，只有少量存活。老年代中对象存活率高，没有额外空间进行分配担保）
+</code></pre><h2 id="4-垃圾收集器（是回收算法的具体体现）："><a href="#4-垃圾收集器（是回收算法的具体体现）：" class="headerlink" title="4. 垃圾收集器（是回收算法的具体体现）："></a>4. 垃圾收集器（是回收算法的具体体现）：</h2><pre><code>○ Serial收集器：新生代收集器，单线程收集器，使用一个CPU或一条线程去完成垃圾收集工作。而且在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。
+○ Serial Old收集器：Serial收集器的老年代本版，使用标记-整理算法；
+○ ParNew收集器：Serial收集器的多线程版本；
+○ Pparallel Scavenge收集器：新生代收集器，使用复制算法；
+○ Parallel Old收集器：是Parallel Scanenfe收集器的老年代版本，使用多线程和标记-整理算法；
+○ CMS收集器：以获取最短回收停顿时间为目标的收集器；
+○ G1收集器：面向服务端应用的垃圾收集器
+</code></pre><h2 id="5-垃圾收集何时发生？"><a href="#5-垃圾收集何时发生？" class="headerlink" title="5. 垃圾收集何时发生？"></a>5. 垃圾收集何时发生？</h2><pre><code>○ 当其没有足够的新生代Eden区空间进行分配时，虚拟机将发起一次Minor GC；
+○ Full GC：
+    § 显示调用Sytem.gc()方法；
+    § 老年代空间不足；
+    § 永生代（方法区）空间不足；
+</code></pre><h2 id="6-说明一下垃圾回收的优点以及原理？"><a href="#6-说明一下垃圾回收的优点以及原理？" class="headerlink" title="6. 说明一下垃圾回收的优点以及原理？"></a>6. 说明一下垃圾回收的优点以及原理？</h2><pre><code>• 垃圾回收可以有效的防止内存泄露，有效的管理和使用内存。
+• GC算法包含：标记清除，标记压缩，复制算法，分代回收。
+</code></pre><h2 id="7-内存分配："><a href="#7-内存分配：" class="headerlink" title="7. 内存分配："></a>7. 内存分配：</h2><pre><code>○ 新生代：
+    § Eden区：Java新对象的出生地（如果新创建的对象占用内存很大，则直接分配到老年代）。当Eden区内存不够的时候就会触发MinorGC，对新生代区进行一次垃圾回收。
+    § ServivorTo：保留了一次MinorGC过程中的幸存者。
+    § ServivorFrom：上一次GC的幸存者，作为这一次GC的被扫描者。
+○ 对象优先在新生代Eden区中分配，当其没有足够的空间进行分配时，虚拟机将发起一次Minor GC；
+○ 需要大量连续内存空间的Java变量直接进入老年代；
+○ 长期存活的对象将进入老年代；
+</code></pre><h2 id="8-内存泄漏"><a href="#8-内存泄漏" class="headerlink" title="8. 内存泄漏"></a>8. 内存泄漏</h2><pre><code>○ 内存泄漏是指一个不再被程序使用的对象或变量还在内存中占有存储空间。
+○ 有两类主要的Java内存泄漏:
+    * 不再需要的对象引用
+    * 未释放的系统资源
+○ 内存泄漏场景：
+    1）静态集合类，例如HashMap和Vector；
+    2）各种连接，如数据库连接、网络连接、IO连接；
+    3）变量不合理的作用域；
+    4）单例模式。
+○ 如何检查内存泄漏？
+    待补充
+○ 如何避免内存泄漏？
+    待补充
+</code></pre><h1 id="第四章-虚拟机性能监控与故障处理工具"><a href="#第四章-虚拟机性能监控与故障处理工具" class="headerlink" title="第四章 虚拟机性能监控与故障处理工具"></a>第四章 虚拟机性能监控与故障处理工具</h1><pre><code>1. jps：虚拟机进程状况工具，显示指定系统内所有的虚拟机进程；
+2. jstat：虚拟机统计信息监视工具，收集虚拟机各方面的运行数据；
+3. jinfo：Java配置信息工具，显示虚拟机配置信息；
+4. jmap：Java内存映像工具，生成虚拟机的内存转储快照；
+5. jhat：虚拟机堆转储快照分析工具，分析java堆的命令，将堆中的对象以html的形式显示出来；
+6. jstack：Java堆栈跟踪工具，显示虚拟机的线程快照；
+7. JDK可视化工具：JConsole，VisualVM
+</code></pre><h1 id="第七章-虚拟机类加载机制"><a href="#第七章-虚拟机类加载机制" class="headerlink" title="第七章 虚拟机类加载机制"></a>第七章 虚拟机类加载机制</h1><h2 id="1-类的生命周期"><a href="#1-类的生命周期" class="headerlink" title="1. 类的生命周期"></a>1. 类的生命周期</h2><pre><code>![](类的生命周期.png)
+</code></pre><h2 id="2-类的加载过程包括前5个阶段：加载、验证、准备、解析、初始化。"><a href="#2-类的加载过程包括前5个阶段：加载、验证、准备、解析、初始化。" class="headerlink" title="2. 类的加载过程包括前5个阶段：加载、验证、准备、解析、初始化。"></a>2. 类的加载过程包括前5个阶段：加载、验证、准备、解析、初始化。</h2><pre><code>○ 加载：在内存中生成类的java.lang.Class对象；
+○ 验证：为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求，且不会危害虚拟机自身的伤害；（文件格式验证、元数据验证、字节码验证、符号应用验证）
+○ 准备：为类变量分配内存并设置初始值（初始值为类型的默认值）；
+○ 解析：常量内存的符号引用替换为直接引用，解析动作主要针对类或接口、字段、类方法、接口方法、方法类型；（符号引用以一组符号来描述所引用的目标，符号引用所引用的目标不一定已经加载到内存中；直接引用可以是直接指向目标的指针，代表引用的目标必定已经在内存中存在）
+○ 初始化：按照定义为类的变量真正的初值；
+</code></pre><h2 id="3-双亲委派模型"><a href="#3-双亲委派模型" class="headerlink" title="3. 双亲委派模型"></a>3. 双亲委派模型</h2><pre><code>○ 如果一个类加载器收到了类加载的请求，它首先不会请求自己去尝试加载这个类，而是把这个请求委派给父类加载器去完成，每一层次的类加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，只有当父加载器反馈自己无法完成这个加载请求时，子加载器才会尝试自己去加载。（先让父母干，不行再自己上）
+![](双亲委派模型.png)
+
+○ 优点：Java类随着它的加载器一起具备一种带有优先级的层次关系，保证不会重复加载类；
+</code></pre><h2 id="4-类加载时机："><a href="#4-类加载时机：" class="headerlink" title="4. 类加载时机："></a>4. 类加载时机：</h2><pre><code>○ 遇到new时，如果类没有进行初始化，则需要先触发其初始化；
+○ 使用java.lang.reflect包的方法对类进行反射调用时；
+○ 初始化类时，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化；
+○ 虚拟机启动，用户需要指定一个要执行的主类，虚拟机会优先初始化这个主类；
+</code></pre><h1 id="第十二章-Java内存模型与线程"><a href="#第十二章-Java内存模型与线程" class="headerlink" title="第十二章 Java内存模型与线程"></a>第十二章 Java内存模型与线程</h1><h2 id="1-Java内存模型：Java内存模型规定了所有的变量都存储在主内存中，每条线程还有自己的工作内存，线程的工作内存保存了该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存中的变量。"><a href="#1-Java内存模型：Java内存模型规定了所有的变量都存储在主内存中，每条线程还有自己的工作内存，线程的工作内存保存了该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存中的变量。" class="headerlink" title="1. Java内存模型：Java内存模型规定了所有的变量都存储在主内存中，每条线程还有自己的工作内存，线程的工作内存保存了该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存中的变量。    "></a>1. Java内存模型：Java内存模型规定了所有的变量都存储在主内存中，每条线程还有自己的工作内存，线程的工作内存保存了该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存中的变量。    <img src="/2020/04/03/JVM-学习笔记/Java工作内存.png" alt></h2><p>##2. volatile型变量的特殊规则：<br>        ○ 关键字volatile是Java虚拟机提供的最轻量级的同步机制；<br>        ○ 当一个变量定义为volatile后，具备两种特性：<br>            § 第一保证此变量对所有线程的可见性，可见性是指当一条线程修改了这个变量的值，新值对于其他线程来说是立即得知的。volatile这条特性保证了新值能立即同步到主内存，以及每次使用前立即从主内存刷新；<br>            § 第二是禁止指令重排优化，普通的变量仅仅会保证在该方法执行过程中所有依赖赋值结果的地方都能获取正确的结果，而不能保证变量赋值操作的顺序与程序代码中的执行顺序一致；</p>
+<h2 id="3-Java线程调度"><a href="#3-Java线程调度" class="headerlink" title="3. Java线程调度"></a>3. Java线程调度</h2><pre><code>线程调度指系统为线程分配处理器使用权的过程，主要调度方式有两种：
+    ○ 协同式线程调度：线程的执行时间由线程本身来控制，线程把自己的工作执行完之后，会主动通知系统切换线程。优点：实现简单；缺点：线程执行时间不可控制，可能会导致整个进程阻塞；
+    ○ 抢占式线程调度：(Java线程调度方式采用此方式) 线程由系统来分配时间，线程的切换不由线程本身决定。
+</code></pre><h2 id="4-Java语言定义了5种线程状态："><a href="#4-Java语言定义了5种线程状态：" class="headerlink" title="4. Java语言定义了5种线程状态："></a>4. Java语言定义了5种线程状态：</h2><pre><code>○ 新建
+○ 运行
+○ 无限期等待：这种状态的线程不会分配CPU时间，等待其他线程显示地唤醒；
+![](限期等待.png)    
+○ 限期等待：这种状态的线程也不会分配CPU时间，也无需等待被其他线程显示地唤醒，在一定时间之后由系统自动唤醒；
+    ![](无限期等待.png)
+○ 阻塞
+○ 结束（死亡）
+</code></pre><h1 id="第十三章-线程安全与锁优化"><a href="#第十三章-线程安全与锁优化" class="headerlink" title="第十三章 线程安全与锁优化"></a>第十三章 线程安全与锁优化</h1><h2 id="1-线程安全定义：当多个线程访问一个对象时，如果不考虑这些线程在运行时环境下地调度和交替执行，也不需要额外地同步，调用这个对象地行为都获得正确地结果，那么这个对象是线程安全地；"><a href="#1-线程安全定义：当多个线程访问一个对象时，如果不考虑这些线程在运行时环境下地调度和交替执行，也不需要额外地同步，调用这个对象地行为都获得正确地结果，那么这个对象是线程安全地；" class="headerlink" title="1. 线程安全定义：当多个线程访问一个对象时，如果不考虑这些线程在运行时环境下地调度和交替执行，也不需要额外地同步，调用这个对象地行为都获得正确地结果，那么这个对象是线程安全地；"></a>1. 线程安全定义：当多个线程访问一个对象时，如果不考虑这些线程在运行时环境下地调度和交替执行，也不需要额外地同步，调用这个对象地行为都获得正确地结果，那么这个对象是线程安全地；</h2><h2 id="2-线程不安全地原因：多个线程存在资源竞争；"><a href="#2-线程不安全地原因：多个线程存在资源竞争；" class="headerlink" title="2. 线程不安全地原因：多个线程存在资源竞争；"></a>2. 线程不安全地原因：多个线程存在资源竞争；</h2><h2 id="3-根据线程安全程度由强至弱来排序，Java语言中各项操作共享的数据分为以下5类："><a href="#3-根据线程安全程度由强至弱来排序，Java语言中各项操作共享的数据分为以下5类：" class="headerlink" title="3. 根据线程安全程度由强至弱来排序，Java语言中各项操作共享的数据分为以下5类："></a>3. 根据线程安全程度由强至弱来排序，Java语言中各项操作共享的数据分为以下5类：</h2><pre><code>不可变》绝对线程安全》相对线程安全》线程兼容》线程对立
+</code></pre><h2 id="4-保证线程安全的措施：Syschronized-和-ReentrantLock"><a href="#4-保证线程安全的措施：Syschronized-和-ReentrantLock" class="headerlink" title="4. 保证线程安全的措施：Syschronized 和 ReentrantLock"></a>4. 保证线程安全的措施：Syschronized 和 ReentrantLock</h2><pre><code>○ 都是线程可重入锁；
+○ 公平锁：指多个线程在等待同一个锁时，必须按照申请锁的时间顺序来依次获得锁，非公平锁不保证这一点；Synchronized的锁是非公平的，ReentrantLock既有非公平也有公平锁；
+</code></pre><h2 id="5-锁优化："><a href="#5-锁优化：" class="headerlink" title="5. 锁优化："></a>5. 锁优化：</h2><pre><code>○ 适应性自旋：两个线程同时并发时，让后面那个线程等待一会，当前线程不放弃处理器的执行时间，只需要让后面的线程执行一个忙循环（自旋）即可。适应性指不固定自旋的时间，由前一次在同一锁上的自旋时间及锁的拥有者的状态来决定。（为什么要让后面的线程稍微等待一会？因为在互斥同步，共享数据的锁定状态只会在很短的一段时间，为了这段时间去挂起和恢复线程并不值得）
+○ 锁消除：虚拟机在即时编译器在运行时，对一些代码上要求同步，但是会对检测到不可能存在共享数据竞争的锁进行消除；
+○ 锁粗化：（为什么锁粒度要小？为了使得需要同步的操作数量尽可能变小，如果存在锁竞争，那等待锁的线程也尽快拿到锁。）
+○ 轻量级锁：并不是用来代替重量级锁的，本意是在没有多线程竞争的前提下减少传统的重量级锁适应操作系统互斥量产生的性能消耗，也就是在无竞争的情况下使用CAS操作去消除同步使用的互斥量（CAS操作？）；
+○ 偏向锁 ：在无竞争的情况下把整个同步都消除掉，连CAS操作都不做了。偏向锁会偏向于第一个获得它的线程，如果在接下来的执行过程中，该锁没有被其他的线程获取，则持有偏向锁的线程将永远不需要再进行同步（如果CAS操作成功，持有偏向锁的线程以后每次进入这个锁相关的同步块时，虚拟机都可以不再进行任何同步操作，如果有另外一个线程尝试获取这个锁时，偏向模式就宣告结束）；
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/04/03/JVM-学习笔记/">JVM-学习笔记</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Zhijuan</a></p>
+        <p><span>发布时间:</span>2020-04-03, 23:34:40</p>
+        <p><span>最后更新:</span>2020-04-03, 23:46:48</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/04/03/JVM-学习笔记/" title="JVM-学习笔记">https://chengchengzi.github.io/2020/04/03/JVM-学习笔记/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://chengchengzi.github.io/2020/04/03/JVM-学习笔记/　　作者: Zhijuan" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/11/10/设计模式-学习笔记/">
+                    设计模式-学习笔记
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一章"><span class="toc-number">2.</span> <span class="toc-text">第一章</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-JDK、JRE、JVM的关系"><span class="toc-number">2.1.</span> <span class="toc-text">1. JDK、JRE、JVM的关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章-Java内存区域与内存溢出异常"><span class="toc-number">3.</span> <span class="toc-text">第二章 Java内存区域与内存溢出异常</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Java自动内存管理机制不易出现内存泄漏和内存溢出问题；"><span class="toc-number">3.1.</span> <span class="toc-text">1. Java自动内存管理机制不易出现内存泄漏和内存溢出问题；</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Java虚拟机在执行Java程序的过程中，会把它所管理的内存划分为若干区域，Java运行时数据区域包括："><span class="toc-number">3.2.</span> <span class="toc-text">2. Java虚拟机在执行Java程序的过程中，会把它所管理的内存划分为若干区域，Java运行时数据区域包括：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-对象在内存中存储的布局分为：对象头、实例数据、对齐填充："><span class="toc-number">3.3.</span> <span class="toc-text">3. 对象在内存中存储的布局分为：对象头、实例数据、对齐填充：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章-垃圾收集器与内存再分配策略"><span class="toc-number">4.</span> <span class="toc-text">第三章 垃圾收集器与内存再分配策略</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-需要回收哪些部分？"><span class="toc-number">4.1.</span> <span class="toc-text">1. 需要回收哪些部分？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-如何判断对象是否存活？"><span class="toc-number">4.2.</span> <span class="toc-text">2. 如何判断对象是否存活？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-垃圾收集算法："><span class="toc-number">4.3.</span> <span class="toc-text">3. 垃圾收集算法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-垃圾收集器（是回收算法的具体体现）："><span class="toc-number">4.4.</span> <span class="toc-text">4. 垃圾收集器（是回收算法的具体体现）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-垃圾收集何时发生？"><span class="toc-number">4.5.</span> <span class="toc-text">5. 垃圾收集何时发生？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-说明一下垃圾回收的优点以及原理？"><span class="toc-number">4.6.</span> <span class="toc-text">6. 说明一下垃圾回收的优点以及原理？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-内存分配："><span class="toc-number">4.7.</span> <span class="toc-text">7. 内存分配：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-内存泄漏"><span class="toc-number">4.8.</span> <span class="toc-text">8. 内存泄漏</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第四章-虚拟机性能监控与故障处理工具"><span class="toc-number">5.</span> <span class="toc-text">第四章 虚拟机性能监控与故障处理工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第七章-虚拟机类加载机制"><span class="toc-number">6.</span> <span class="toc-text">第七章 虚拟机类加载机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-类的生命周期"><span class="toc-number">6.1.</span> <span class="toc-text">1. 类的生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-类的加载过程包括前5个阶段：加载、验证、准备、解析、初始化。"><span class="toc-number">6.2.</span> <span class="toc-text">2. 类的加载过程包括前5个阶段：加载、验证、准备、解析、初始化。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-双亲委派模型"><span class="toc-number">6.3.</span> <span class="toc-text">3. 双亲委派模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-类加载时机："><span class="toc-number">6.4.</span> <span class="toc-text">4. 类加载时机：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十二章-Java内存模型与线程"><span class="toc-number">7.</span> <span class="toc-text">第十二章 Java内存模型与线程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Java内存模型：Java内存模型规定了所有的变量都存储在主内存中，每条线程还有自己的工作内存，线程的工作内存保存了该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存中的变量。"><span class="toc-number">7.1.</span> <span class="toc-text">1. Java内存模型：Java内存模型规定了所有的变量都存储在主内存中，每条线程还有自己的工作内存，线程的工作内存保存了该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存中的变量。    </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Java线程调度"><span class="toc-number">7.2.</span> <span class="toc-text">3. Java线程调度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Java语言定义了5种线程状态："><span class="toc-number">7.3.</span> <span class="toc-text">4. Java语言定义了5种线程状态：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十三章-线程安全与锁优化"><span class="toc-number">8.</span> <span class="toc-text">第十三章 线程安全与锁优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-线程安全定义：当多个线程访问一个对象时，如果不考虑这些线程在运行时环境下地调度和交替执行，也不需要额外地同步，调用这个对象地行为都获得正确地结果，那么这个对象是线程安全地；"><span class="toc-number">8.1.</span> <span class="toc-text">1. 线程安全定义：当多个线程访问一个对象时，如果不考虑这些线程在运行时环境下地调度和交替执行，也不需要额外地同步，调用这个对象地行为都获得正确地结果，那么这个对象是线程安全地；</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-线程不安全地原因：多个线程存在资源竞争；"><span class="toc-number">8.2.</span> <span class="toc-text">2. 线程不安全地原因：多个线程存在资源竞争；</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-根据线程安全程度由强至弱来排序，Java语言中各项操作共享的数据分为以下5类："><span class="toc-number">8.3.</span> <span class="toc-text">3. 根据线程安全程度由强至弱来排序，Java语言中各项操作共享的数据分为以下5类：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-保证线程安全的措施：Syschronized-和-ReentrantLock"><span class="toc-number">8.4.</span> <span class="toc-text">4. 保证线程安全的措施：Syschronized 和 ReentrantLock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-锁优化："><span class="toc-number">8.5.</span> <span class="toc-text">5. 锁优化：</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JVM-学习笔记　| Zhijuan's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/11/10/设计模式-学习笔记/" title="下一篇: 设计模式-学习笔记">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/03/JVM-学习笔记/">JVM-学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/10/设计模式-学习笔记/">设计模式-学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/26/Linux-Learning/">Linux-Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/08/《Effective-C-》-阅读笔记/">《Effective C++》-阅读笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/08/《深入C-对象模型》笔记/">《深入C++对象模型》笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/《机器学习》周志华-笔记/">《机器学习》周志华-笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/12/Python学习笔记/">Python学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/09/ML-Learning/">ML Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/08/C-之IO操作-博客迁移/">C++之IO操作_博客迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/08/学习STL-博客迁移/">学习STL_博客迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/08/开始Blog之旅-博客迁移/">开始Blog之旅_博客迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/06/你好-Hexo/">你好,Hexo!</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/06/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2020 Zhijuan
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 6;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "等你回来哦~ " + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "欢迎回来哦~ " + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
